@@ -1,0 +1,784 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {
+  BUILD_META,
+  BUILD_PRESETS,
+  CHECKLIST_PHASES,
+  GAME_MATRIX,
+  MICRO_CENTER_AUSTIN,
+  PART_SLOTS,
+} from '../data/buildData';
+
+const fmtMoney = (n: number): string =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(n);
+
+// Compute initial SSR values dynamically from buildData.ts to prevent hydration drift
+const defaultParts = PART_SLOTS.map((slot) => {
+  const opt = slot.options.find((o) => o.id === slot.defaultOptionId) ?? slot.options[0];
+  return { slot, opt };
+});
+
+const initialSubtotal = defaultParts.reduce((sum, { opt }) => sum + opt.price, 0);
+const initialMcParts = defaultParts.filter(({ opt }) => opt.defaultChannel === 'microcenter');
+const initialOnlineParts = defaultParts.filter(({ opt }) => opt.defaultChannel === 'online');
+const initialMcTotal = initialMcParts.reduce((sum, { opt }) => sum + opt.price, 0);
+const initialOnlineTotal = initialOnlineParts.reduce((sum, { opt }) => sum + opt.price, 0);
+const initialTaxRatePct = Number((BUILD_META.defaultTaxRate * 100).toFixed(2));
+const initialTaxAmount = initialSubtotal * BUILD_META.defaultTaxRate;
+const initialOtd = initialSubtotal + initialTaxAmount;
+const initialDelta = initialSubtotal - BUILD_META.budgetTarget;
+const initialPct = Math.min(100, Math.max(0, (initialSubtotal / BUILD_META.budgetTarget) * 100));
+
+const totalChecklistSteps = CHECKLIST_PHASES.reduce((sum, p) => sum + p.items.length, 0);
+
+const ssdSlot = PART_SLOTS.find((s) => s.id === 'ssd')!;
+const sn850x1 = ssdSlot.options.find((o) => o.id === 'sn850x-1tb')!;
+const sn850x2 = ssdSlot.options.find((o) => o.id === 'sn850x-2tb')!;
+const inland1 = ssdSlot.options.find((o) => o.id === 'inland-1tb-mc')!;
+const initialSsdDelta = sn850x2.price - sn850x1.price;
+const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn850x1.price) * 100);
+---
+
+<Layout>
+  <div class="mx-auto max-w-6xl px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+    <!-- Hero Header -->
+    <header class="card-panel rounded-2xl p-5 sm:p-7">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-medium">
+            <span class="rounded-full border border-ctp-red/45 bg-ctp-red/15 px-2.5 py-0.5 text-ctp-red">
+              Team Red AM5 + Radeon 16GB
+            </span>
+            <span class="rounded-full border border-ctp-blue/40 bg-ctp-blue/10 px-2.5 py-0.5 text-ctp-blue">
+              Micro Center Austin Planner
+            </span>
+            <span class="rounded-full border border-ctp-green/40 bg-ctp-green/10 px-2.5 py-0.5 text-ctp-green">
+              Linux-Ready · 4K 60Hz
+            </span>
+          </div>
+          <h1 class="mt-3 text-2xl font-bold tracking-tight text-ctp-text sm:text-3xl">
+            First Gaming PC — $1,500 AM5 &amp; 4K Build Planner
+          </h1>
+          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-ctp-subtext0">
+            Interactive ~$1,500 pre-tax tower configurator built for walking the aisles at
+            <strong class="text-ctp-text">Micro Center Austin</strong>. Swap AM5 bundles, test 1TB vs. 2TB SSD deals,
+            and type real shelf or Open-Box prices right into any part to recalculate tax and budget live.
+          </p>
+        </div>
+
+        <div class="card-panel-subtle flex shrink-0 flex-col gap-1.5 rounded-xl p-3.5 text-xs lg:w-72">
+          <div class="flex items-center justify-between text-ctp-subtext0">
+            <span>Pricing snapshot</span>
+            <span class="font-mono font-semibold text-ctp-lavender">{BUILD_META.lastVerified}</span>
+          </div>
+          <div class="flex items-center justify-between text-ctp-subtext0">
+            <span>Display</span>
+            <span class="font-medium text-ctp-text">4K 60Hz (DisplayPort)</span>
+          </div>
+          <div class="flex items-center justify-between text-ctp-subtext0">
+            <span>Network</span>
+            <span class="font-medium text-ctp-text">Wired Ethernet</span>
+          </div>
+          <div class="flex items-center justify-between text-ctp-subtext0">
+            <span>Look &amp; Cooling</span>
+            <span class="font-medium text-ctp-text">Black Mesh · 5V ARGB · Air</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Presets -->
+      <div class="mt-5 border-t border-ctp-surface0 pt-4">
+        <div class="mb-2 flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Quick Build Presets</span>
+          <span class="text-xs text-ctp-overlay1">Tap a preset, then fine-tune individual parts below</span>
+        </div>
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            BUILD_PRESETS.map((preset) => (
+              <button
+                type="button"
+                data-preset-btn={preset.id}
+                aria-pressed="false"
+                class="rounded-xl border border-ctp-surface1 bg-ctp-mantle/80 px-3 py-1.5 text-left transition hover:border-ctp-surface2 hover:bg-ctp-surface0/60 cursor-pointer"
+              >
+                <div class="text-xs font-semibold text-ctp-text">{preset.name}</div>
+                <div class="text-[11px] text-ctp-subtext0">{preset.tagline}</div>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Sticky Budget & Store Split HUD -->
+    <section
+      aria-label="Live Build Budget Summary"
+      class="card-panel sticky top-2 z-30 mt-4 rounded-2xl p-4 shadow-xl shadow-black/35"
+    >
+      <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <!-- Left: Subtotal & Budget Progress -->
+        <div class="flex-1">
+          <div class="flex flex-wrap items-baseline gap-2.5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Pre-Tax Tower</span>
+            <span id="hud-subtotal" class="font-mono text-2xl font-bold text-ctp-text">{fmtMoney(initialSubtotal)}</span>
+            <span
+              id="hud-budget-badge"
+              class="inline-flex items-center rounded-full border border-ctp-green/40 bg-ctp-green/15 px-2.5 py-0.5 text-xs font-semibold text-ctp-green"
+            >
+              {
+                initialDelta <= 0
+                  ? `${fmtMoney(Math.abs(initialDelta))} under $1,500 target`
+                  : `${fmtMoney(initialDelta)} over $1,500 target`
+              }
+            </span>
+            <span
+              id="hud-override-count"
+              class="hidden rounded-full border border-ctp-peach/40 bg-ctp-peach/15 px-2 py-0.5 text-[11px] font-medium text-ctp-peach"
+            >
+              0 custom shelf prices
+            </span>
+          </div>
+
+          <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-ctp-surface0">
+            <div
+              id="hud-progress-bar"
+              class="h-full rounded-full bg-gradient-to-r from-ctp-teal to-ctp-green transition-all duration-300"
+              style={`width: ${initialPct.toFixed(1)}%`}
+            >
+            </div>
+          </div>
+
+          <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ctp-subtext0">
+            <span>
+              <span class="inline-block h-2 w-2 rounded-full bg-ctp-blue"></span>
+              Micro Center Austin:{' '}
+              <strong id="hud-mc-total" class="font-mono text-ctp-text">
+                {fmtMoney(initialMcTotal)} ({initialMcParts.length})
+              </strong>
+            </span>
+            <span>
+              <span class="inline-block h-2 w-2 rounded-full bg-ctp-mauve"></span>
+              Online:{' '}
+              <strong id="hud-online-total" class="font-mono text-ctp-text">
+                {fmtMoney(initialOnlineTotal)} ({initialOnlineParts.length})
+              </strong>
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: Tax + Out-the-Door + Actions -->
+        <div class="flex flex-wrap items-center gap-3 border-t border-ctp-surface0 pt-3 lg:border-l lg:border-t-0 lg:pl-4 lg:pt-0">
+          <div class="rounded-xl border border-ctp-surface0 bg-ctp-mantle/80 px-3 py-2 text-xs">
+            <div class="flex items-center gap-1.5 text-ctp-subtext0">
+              <label for="hud-tax-rate">TX Tax</label>
+              <input
+                id="hud-tax-rate"
+                type="number"
+                step="0.05"
+                min="0"
+                max="20"
+                value={initialTaxRatePct}
+                class="w-14 rounded border border-ctp-surface1 bg-ctp-base px-1.5 py-0.5 text-right font-mono text-xs text-ctp-text focus:border-ctp-blue focus:outline-none"
+              />
+              <span>%</span>
+              <span class="text-ctp-overlay1">(<span id="hud-tax-amount" class="font-mono">{fmtMoney(initialTaxAmount)}</span>)</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between gap-3">
+              <span class="text-ctp-overlay2">Out-the-door</span>
+              <span id="hud-otd-total" class="font-mono text-base font-bold text-ctp-lavender">{fmtMoney(initialOtd)}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="share-build-btn"
+              class="rounded-xl border border-ctp-blue/45 bg-ctp-blue/15 px-3 py-2 text-xs font-semibold text-ctp-blue transition hover:bg-ctp-blue/25 cursor-pointer"
+            >
+              Share Build
+            </button>
+            <button
+              type="button"
+              id="reset-all-btn"
+              class="rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-2 text-xs font-medium text-ctp-subtext0 transition hover:border-ctp-red/50 hover:text-ctp-red cursor-pointer"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary Tab Navigation -->
+    <nav
+      role="tablist"
+      aria-label="Build Planner Sections"
+      class="mt-5 grid grid-cols-2 gap-2 rounded-2xl border border-ctp-surface0 bg-ctp-mantle/80 p-1.5 sm:grid-cols-4"
+    >
+      <button
+        id="tab-configurator"
+        type="button"
+        role="tab"
+        data-tab-btn="configurator"
+        aria-selected="true"
+        aria-controls="panel-configurator"
+        tabindex="0"
+        class="tab-btn rounded-xl border px-3 py-2.5 text-xs font-semibold transition sm:text-sm cursor-pointer"
+      >
+        1. Configurator
+      </button>
+      <button
+        id="tab-shopping"
+        type="button"
+        role="tab"
+        data-tab-btn="shopping"
+        aria-selected="false"
+        aria-controls="panel-shopping"
+        tabindex="-1"
+        class="tab-btn rounded-xl border px-3 py-2.5 text-xs font-semibold transition sm:text-sm cursor-pointer"
+      >
+        2. MC vs. Online
+      </button>
+      <button
+        id="tab-storage"
+        type="button"
+        role="tab"
+        data-tab-btn="storage"
+        aria-selected="false"
+        aria-controls="panel-storage"
+        tabindex="-1"
+        class="tab-btn rounded-xl border px-3 py-2.5 text-xs font-semibold transition sm:text-sm cursor-pointer"
+      >
+        3. 1TB vs. 2TB &amp; 4K
+      </button>
+      <button
+        id="tab-checklist"
+        type="button"
+        role="tab"
+        data-tab-btn="checklist"
+        aria-selected="false"
+        aria-controls="panel-checklist"
+        tabindex="-1"
+        class="tab-btn rounded-xl border px-3 py-2.5 text-xs font-semibold transition sm:text-sm cursor-pointer"
+      >
+        4. Build-Day Guide
+      </button>
+    </nav>
+
+    <!-- TAB PANELS -->
+    <main class="mt-5">
+      <!-- TAB 1: INTERACTIVE CONFIGURATOR -->
+      <div
+        id="panel-configurator"
+        role="tabpanel"
+        aria-labelledby="tab-configurator"
+        data-tab-panel="configurator"
+        class="space-y-4"
+      >
+        <div class="rounded-xl border border-ctp-sapphire/30 bg-ctp-sapphire/10 px-4 py-3 text-xs leading-relaxed text-ctp-sapphire">
+          <strong class="font-semibold">In-Store Live Mode:</strong> Every price box below is editable and saved in your
+          browser. When you’re at Micro Center Austin and spot an Open-Box RX 9070 XT for $789 or an Inland 1TB NVMe
+          for $89, tap the price box to type it in and watch your totals update instantly.
+        </div>
+
+        {
+          PART_SLOTS.map((slot) => (
+            <article data-slot-card={slot.id} class="card-panel rounded-2xl p-4 sm:p-5">
+              <!-- Slot Header + Inline Price + Channel Controls -->
+              <div class="flex flex-col gap-3 border-b border-ctp-surface0 pb-4 md:flex-row md:items-center md:justify-between">
+                <div class="flex items-start gap-3">
+                  <div class="flex h-10 w-12 shrink-0 items-center justify-center rounded-xl border border-ctp-surface1 bg-ctp-mantle font-mono text-xs font-bold text-ctp-red">
+                    {slot.icon}
+                  </div>
+                  <div>
+                    <h2 class="text-base font-bold text-ctp-text">{slot.title}</h2>
+                    <p class="text-xs text-ctp-subtext0">{slot.subtitle}</p>
+                  </div>
+                </div>
+
+                <!-- Right Controls: Buy Channel + Editable Price -->
+                <div class="flex flex-wrap items-center gap-3 md:justify-end">
+                  <div class="flex items-center gap-1 rounded-xl border border-ctp-surface0 bg-ctp-crust/60 p-1">
+                    <button
+                      type="button"
+                      data-channel-btn={slot.id}
+                      data-channel="microcenter"
+                      aria-pressed="false"
+                      class="rounded-lg px-2.5 py-1 text-xs font-medium cursor-pointer"
+                    >
+                      MC Austin
+                    </button>
+                    <button
+                      type="button"
+                      data-channel-btn={slot.id}
+                      data-channel="online"
+                      aria-pressed="false"
+                      class="rounded-lg px-2.5 py-1 text-xs font-medium cursor-pointer"
+                    >
+                      Online
+                    </button>
+                  </div>
+
+                  <div class="flex flex-col items-end">
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-mono text-sm text-ctp-overlay2">$</span>
+                      <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max="10000"
+                        aria-label={`Live price override for ${slot.title}`}
+                        data-price-input={slot.id}
+                        class="w-24 rounded-xl border border-ctp-surface1 bg-ctp-crust px-2.5 py-1.5 text-right font-mono text-sm font-bold text-ctp-text focus:border-ctp-red focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        data-price-reset={slot.id}
+                        class="hidden rounded-lg border border-ctp-peach/40 bg-ctp-peach/10 px-2 py-1 text-[11px] font-medium text-ctp-peach hover:bg-ctp-peach/20 cursor-pointer"
+                        title="Restore Nov 2026 baseline price"
+                      >
+                        ↺
+                      </button>
+                    </div>
+                    <span data-price-tag={slot.id} class="mt-0.5 text-[11px] text-ctp-overlay2">
+                      Nov 2026 baseline
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option Selector Pills -->
+              <div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+                {slot.options.map((opt) => (
+                  <button
+                    type="button"
+                    data-option-btn
+                    data-slot={slot.id}
+                    data-option-id={opt.id}
+                    aria-pressed="false"
+                    class="cursor-pointer rounded-xl border border-ctp-surface0 bg-ctp-mantle/70 px-3 py-2.5 text-left transition hover:border-ctp-surface2"
+                  >
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="text-xs font-semibold text-ctp-text">{opt.shortName}</span>
+                      {opt.badge && (
+                        <span class="shrink-0 rounded-md bg-ctp-surface0 px-1.5 py-0.5 text-[10px] font-semibold text-ctp-lavender">
+                          {opt.badge}
+                        </span>
+                      )}
+                    </div>
+                    <div class="mt-1 flex items-center justify-between text-xs">
+                      <span data-pill-price class="font-mono font-bold text-ctp-green">
+                        {fmtMoney(opt.price)}
+                      </span>
+                      <span class="text-[11px] text-ctp-overlay1">
+                        {opt.defaultChannel === 'microcenter' ? 'MC Austin' : 'Online'}
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              <!-- Selected Option Details -->
+              <div data-slot-details={slot.id} class="card-panel-subtle mt-4 rounded-xl p-4" />
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- TAB 2: MICRO CENTER AUSTIN VS ONLINE SHOPPING PLAN -->
+      <div
+        id="panel-shopping"
+        role="tabpanel"
+        aria-labelledby="tab-shopping"
+        data-tab-panel="shopping"
+        class="hidden space-y-5"
+      >
+        <!-- Store Info Banner -->
+        <div class="card-panel rounded-2xl p-5">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-blue">In-Store Pickup Hub</div>
+              <h2 class="mt-1 text-xl font-bold text-ctp-text">{MICRO_CENTER_AUSTIN.name}</h2>
+              <p class="mt-1 text-sm text-ctp-subtext1">{MICRO_CENTER_AUSTIN.address}</p>
+              <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ctp-subtext0">
+                <span>🕒 {MICRO_CENTER_AUSTIN.hoursMonSat}</span>
+                <span>🕒 {MICRO_CENTER_AUSTIN.hoursSun}</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <a
+                href={MICRO_CENTER_AUSTIN.bundlesUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-xl border border-ctp-red/50 bg-ctp-red/15 px-3.5 py-2 text-xs font-semibold text-ctp-red transition hover:bg-ctp-red/25"
+              >
+                Live AMD Bundles ↗
+              </a>
+              <a
+                href={MICRO_CENTER_AUSTIN.comboBuilderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-xl border border-ctp-mauve/50 bg-ctp-mauve/15 px-3.5 py-2 text-xs font-semibold text-ctp-mauve transition hover:bg-ctp-mauve/25"
+              >
+                Combo Builder ↗
+              </a>
+              <a
+                href={MICRO_CENTER_AUSTIN.storeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-xl border border-ctp-blue/50 bg-ctp-blue/15 px-3.5 py-2 text-xs font-semibold text-ctp-blue transition hover:bg-ctp-blue/25"
+              >
+                Austin Store Page ↗
+              </a>
+              <a
+                href={MICRO_CENTER_AUSTIN.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-xl border border-ctp-surface2 bg-ctp-surface0 px-3.5 py-2 text-xs font-semibold text-ctp-text transition hover:bg-ctp-surface1"
+              >
+                Google Maps ↗
+              </a>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center justify-between border-t border-ctp-surface0 pt-3 text-xs">
+            <span class="text-ctp-subtext0">Check items off as you put them in the cart or order online:</span>
+            <span id="shopping-cart-summary" class="font-mono font-semibold text-ctp-green">
+              0 of {PART_SLOTS.length} parts checked off
+            </span>
+          </div>
+        </div>
+
+        <!-- Split Lists -->
+        <div class="grid gap-5 lg:grid-cols-2">
+          <!-- Micro Center List -->
+          <section class="card-panel rounded-2xl p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ctp-surface0 pb-3">
+              <div>
+                <h3 class="text-base font-bold text-ctp-blue">In-Store: Micro Center Austin</h3>
+                <p id="shopping-mc-subtotal" class="font-mono text-xs text-ctp-subtext0">{fmtMoney(initialMcTotal)}</p>
+              </div>
+              <span class="rounded-full border border-ctp-blue/40 bg-ctp-blue/10 px-2.5 py-0.5 text-[11px] font-semibold text-ctp-blue">
+                Reserve 18-Min Pickup
+              </span>
+            </div>
+            <div id="shopping-mc-list" class="mt-4 space-y-2.5"></div>
+          </section>
+
+          <!-- Online List -->
+          <section class="card-panel rounded-2xl p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ctp-surface0 pb-3">
+              <div>
+                <h3 class="text-base font-bold text-ctp-mauve">Order Online (Amazon / Newegg)</h3>
+                <p id="shopping-online-subtotal" class="font-mono text-xs text-ctp-subtext0">
+                  {fmtMoney(initialOnlineTotal)}
+                </p>
+              </div>
+              <span class="rounded-full border border-ctp-mauve/40 bg-ctp-mauve/10 px-2.5 py-0.5 text-[11px] font-semibold text-ctp-mauve">
+                Order 2–3 Days Early
+              </span>
+            </div>
+            <div id="shopping-online-list" class="mt-4 space-y-2.5"></div>
+          </section>
+        </div>
+
+        <!-- Nov 2026 Market & Micro Center Tips -->
+        <section class="card-panel rounded-2xl p-5">
+          <h3 class="text-base font-bold text-ctp-text">Nov 2026 Black Friday &amp; Micro Center Strategy</h3>
+          <div class="mt-3 grid gap-3 sm:grid-cols-2">
+            <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
+              <div class="font-semibold text-ctp-peach">1. Why the Austin AM5 Bundle Is Non-Negotiable</div>
+              <p class="mt-1">
+                2026 memory shortages ("RAMageddon") drove standalone DDR5-6000 and SSD tags up sharply. Micro Center’s
+                3-in-1 bundle saves ~$200–$350 over online individual parts — more than paying for the drive.
+              </p>
+            </div>
+            <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
+              <div class="font-semibold text-ctp-green">2. Check the Open-Box GPU Glass Case</div>
+              <p class="mt-1">
+                Before grabbing a sealed RX 9070 / 9070 XT off the shelf, check Austin’s Open-Box section. Returned
+                cards keep Micro Center’s 30-day return policy and can bring an RX 9070 XT under $800.
+              </p>
+            </div>
+            <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
+              <div class="font-semibold text-ctp-yellow">3. Bundle Rules &amp; RAM Sanity Check</div>
+              <p class="mt-1">
+                Confirm the bundle includes <strong>32GB (2×16GB)</strong> DDR5-6000 (not 16GB) and verify ATX vs. mATX
+                board size. Note that Micro Center requires returning all 3 bundle items together.
+              </p>
+            </div>
+            <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
+              <div class="font-semibold text-ctp-sky">4. Price-Match &amp; Inland NVMe Specials</div>
+              <p class="mt-1">
+                Micro Center price-matches major retailers (Amazon shipped/sold by Amazon, Best Buy, Newegg) on
+                identical SKUs, and their house-brand Inland TLC Gen 4 SSDs often undercut online Black Friday deals.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 3: 1TB VS 2TB SSD MATH & 4K LINUX READINESS -->
+      <div
+        id="panel-storage"
+        role="tabpanel"
+        aria-labelledby="tab-storage"
+        data-tab-panel="storage"
+        class="hidden space-y-5"
+      >
+        <!-- Live 1TB vs 2TB Calculator -->
+        <section class="card-panel rounded-2xl p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 class="text-lg font-bold text-ctp-text">Live 1TB vs. 2TB NVMe Value Check</h2>
+              <p class="text-xs text-ctp-subtext0">
+                Updates automatically when you select or override SSD prices in the Configurator tab.
+              </p>
+            </div>
+            <div class="rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-1.5 text-xs">
+              <span id="ssd-delta-label">{sn850x1.shortName} → {sn850x2.shortName}:</span>{' '}
+              <strong id="ssd-delta-amount" class="font-mono text-ctp-peach">+{fmtMoney(initialSsdDelta)}</strong>
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-3 md:grid-cols-3">
+            <!-- 1TB Card -->
+            <div class="card-panel-subtle rounded-xl p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Default 1TB (DRAM)</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">WD_BLACK SN850X 1TB</div>
+              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-text">{fmtMoney(sn850x1.price)}</div>
+              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-subtext0">{fmtMoney(sn850x1.price)} / TB</div>
+              <p class="mt-2 text-xs text-ctp-subtext0">
+                ~96GB used by Linux + 3 core games → <strong>~835GB free</strong> for 10–15 more Steam titles.
+              </p>
+              <button
+                type="button"
+                data-quick-ssd="sn850x-1tb"
+                data-quick-ssd-label="1TB SN850X"
+                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
+              >
+                Select 1TB SN850X
+              </button>
+            </div>
+
+            <!-- 2TB Card -->
+            <div class="card-panel-subtle rounded-xl border-ctp-green/35 p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Black Friday 2TB Sweet Spot</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">WD_BLACK SN850X 2TB</div>
+              <div id="ssd-2tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(sn850x2.price)}</div>
+              <div id="ssd-2tb-pertb" class="font-mono text-xs text-ctp-green/90">
+                {fmtMoney(sn850x2.price / 2)} / TB ({initialSsdPctSaved}% cheaper/TB)
+              </div>
+              <p class="mt-2 text-xs text-ctp-subtext0">
+                Double the storage for a modest jump — leaves room for huge AAA installs or a future Windows dual-boot.
+              </p>
+              <button
+                type="button"
+                data-quick-ssd="sn850x-2tb"
+                data-quick-ssd-label="2TB SN850X"
+                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
+              >
+                Select 2TB SN850X
+              </button>
+            </div>
+
+            <!-- Micro Center 1TB Inland Card -->
+            <div class="card-panel-subtle rounded-xl p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-blue">Micro Center In-Store Option</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">Inland 1TB PCIe 4.0 (TLC)</div>
+              <div id="ssd-inland-price" class="mt-2 font-mono text-2xl font-bold text-ctp-blue">{fmtMoney(inland1.price)}</div>
+              <div class="font-mono text-xs text-ctp-subtext0">Check Austin shelf flyers</div>
+              <p class="mt-2 text-xs text-ctp-subtext0">
+                House-brand loss-leader deals often beat online NAND inflation — grab Performance Plus / TN470 TLC.
+              </p>
+              <button
+                type="button"
+                data-quick-ssd="inland-1tb-mc"
+                data-quick-ssd-label="Inland 1TB"
+                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
+              >
+                Select Inland 1TB
+              </button>
+            </div>
+          </div>
+
+          <div id="ssd-verdict-box" class="mt-4 rounded-xl border border-ctp-green/40 bg-ctp-green/10 p-4 text-sm text-ctp-green">
+            <strong class="font-semibold">
+              Verdict: Minimal Cost Jump ({fmtMoney(initialSsdDelta)}) — 2TB Is Worth Grabbing!
+            </strong>{' '}
+            Doubling storage for ≤$65 drops your $/TB by {initialSsdPctSaved}% and adds years of Steam + optional
+            Windows dual-boot headroom.
+          </div>
+
+          <!-- Storage Footprint Bar -->
+          <div class="mt-4 rounded-xl border border-ctp-surface0 bg-ctp-mantle/80 p-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold text-ctp-text">Estimated Day-One Footprint on 1TB (~931GB usable)</span>
+              <span class="font-mono text-ctp-teal">~96 GB used · ~835 GB free</span>
+            </div>
+            <div class="mt-2 flex h-3 w-full overflow-hidden rounded-full bg-ctp-surface0">
+              <div class="bg-ctp-mauve" style="width: 2.7%" title="Linux OS (~25GB)"></div>
+              <div class="bg-ctp-red" style="width: 7.0%" title="Marvel Rivals (~65GB)"></div>
+              <div class="bg-ctp-green" style="width: 0.7%" title="Valheim + Risk of Rain 2 (~6GB)"></div>
+            </div>
+            <div class="mt-2 flex flex-wrap gap-4 text-[11px] text-ctp-subtext0">
+              <span><span class="inline-block h-2 w-2 rounded-full bg-ctp-mauve"></span> Linux OS (~25GB)</span>
+              <span><span class="inline-block h-2 w-2 rounded-full bg-ctp-red"></span> Marvel Rivals (~65GB)</span>
+              <span><span class="inline-block h-2 w-2 rounded-full bg-ctp-green"></span> Valheim + RoR2 (~6GB)</span>
+              <span><span class="inline-block h-2 w-2 rounded-full bg-ctp-surface2"></span> Free Space (~835GB)</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Game & Linux Hardware Readiness Matrix -->
+        <section class="card-panel rounded-2xl p-5">
+          <h2 class="text-lg font-bold text-ctp-text">4K Gaming &amp; Linux Hardware Compatibility</h2>
+          <p class="mt-1 text-xs text-ctp-subtext0">
+            All three target games run cleanly on Linux with open-source AMD Mesa/RADV drivers.
+          </p>
+
+          <div class="mt-4 grid gap-3 md:grid-cols-3">
+            {
+              GAME_MATRIX.map((game) => (
+                <div class="card-panel-subtle rounded-xl p-4">
+                  <div class="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 class="text-sm font-bold text-ctp-text">{game.title}</h3>
+                      <div class="text-[11px] text-ctp-overlay2">{game.engine}</div>
+                    </div>
+                    <span class="shrink-0 rounded-full border border-ctp-green/40 bg-ctp-green/10 px-2 py-0.5 text-[10px] font-semibold text-ctp-green">
+                      {game.linuxStatus}
+                    </span>
+                  </div>
+                  <p class="mt-2.5 text-xs leading-relaxed text-ctp-subtext1">{game.fourKNotes}</p>
+                  <div class="mt-3 rounded-lg border border-ctp-surface1 bg-ctp-crust/60 px-2.5 py-2 text-[11px] text-ctp-subtext0">
+                    <strong class="text-ctp-lavender">Linux tip:</strong> {game.protonTip}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Monitor & Network Notes -->
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-xl border border-ctp-blue/35 bg-ctp-blue/10 p-4 text-xs leading-relaxed text-ctp-text">
+              <div class="font-bold text-ctp-blue">4K Monitor on Linux → Always Use DisplayPort</div>
+              <p class="mt-1 text-ctp-subtext1">
+                AMD’s open-source Linux drivers deliver full bandwidth, FreeSync/VRR, and HDR cleanly over
+                <strong>DisplayPort</strong> (whereas HDMI 2.1 FRL is restricted by the HDMI Forum on Linux). Plug
+                the DisplayPort cable directly into the Radeon GPU’s lower ports, not the motherboard.
+              </p>
+            </div>
+            <div class="rounded-xl border border-ctp-teal/35 bg-ctp-teal/10 p-4 text-xs leading-relaxed text-ctp-text">
+              <div class="font-bold text-ctp-teal">Wired Ethernet + Local DNS Ready</div>
+              <p class="mt-1 text-ctp-subtext1">
+                Using wired Ethernet gives rock-solid ping in competitive shooters like Marvel Rivals, avoids Wi-Fi
+                chipset quirks on Linux, and automatically inherits your router’s DHCP and local DNS filtering with
+                zero extra client software.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 4: FIRST-TIME BUILD-DAY CHECKLIST -->
+      <div
+        id="panel-checklist"
+        role="tabpanel"
+        aria-labelledby="tab-checklist"
+        data-tab-panel="checklist"
+        class="hidden space-y-4"
+      >
+        <section class="card-panel rounded-2xl p-5">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-ctp-text">First-Time Build-Day Checklist</h2>
+              <p class="text-xs text-ctp-subtext0">
+                Saved automatically in your browser. Follow in order — assembling CPU, RAM, SSD, and cooler outside the
+                case first makes a first build way less stressful!
+              </p>
+            </div>
+            <button
+              type="button"
+              id="reset-checklist-btn"
+              class="shrink-0 rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-1.5 text-xs font-medium text-ctp-subtext0 hover:border-ctp-red/50 hover:text-ctp-red cursor-pointer"
+            >
+              Reset Checklist
+            </button>
+          </div>
+
+          <div class="mt-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-medium text-ctp-subtext1">Build Progress</span>
+              <span id="checklist-progress-text" class="font-mono font-semibold text-ctp-green">
+                0 / {totalChecklistSteps} steps complete (0%)
+              </span>
+            </div>
+            <div class="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-ctp-surface0">
+              <div
+                id="checklist-progress-bar"
+                class="h-full rounded-full bg-gradient-to-r from-ctp-blue via-ctp-mauve to-ctp-green transition-all duration-300"
+                style="width: 0%"
+              >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {
+          CHECKLIST_PHASES.map((phase) => (
+            <section class="card-panel rounded-2xl p-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ctp-surface0 pb-3">
+                <h3 class="text-base font-bold text-ctp-lavender">{phase.title}</h3>
+                <span class="rounded-full border border-ctp-surface1 bg-ctp-mantle px-2.5 py-0.5 text-[11px] text-ctp-subtext0">
+                  {phase.timing}
+                </span>
+              </div>
+
+              <div class="mt-3 space-y-2.5">
+                {phase.items.map((item) => (
+                  <label
+                    data-checklist-row
+                    class="flex items-start gap-3 rounded-xl border border-ctp-surface0 bg-ctp-mantle/70 p-3.5 transition hover:border-ctp-surface2 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      data-checklist-item={item.id}
+                      class="mt-1 h-4 w-4 shrink-0 rounded border-ctp-surface2 bg-ctp-base accent-ctp-green cursor-pointer"
+                    />
+                    <div>
+                      <div class="text-sm font-medium text-ctp-text">{item.text}</div>
+                      {item.tip && <p class="mt-1 text-xs text-ctp-subtext0">{item.tip}</p>}
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 border-t border-ctp-surface0 pt-5 text-center text-xs text-ctp-overlay1">
+      <p>
+        Built with Astro + Tailwind CSS · Catppuccin Mocha theme · Static GitHub Pages ready (zero trackers, all edits
+        stay local in your browser).
+      </p>
+      <p class="mt-1">
+        Baseline pricing verified {BUILD_META.lastVerified} · Always confirm live in-store availability at Micro Center
+        Austin before making the trip.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    import { initPlanner } from '../scripts/planner';
+    initPlanner();
+  </script>
+</Layout>
