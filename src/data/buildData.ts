@@ -62,6 +62,15 @@ export interface GameProfile {
   protonTip: string;
 }
 
+export interface InStoreStop {
+  id: string;
+  aisle: string;
+  title: string;
+  reservedPick: string;
+  alternatives: string[];
+  skipNote: string;
+}
+
 export const BUILD_META = {
   budgetTarget: 1500,
   defaultTaxRate: 0.0825, // TX 8.25% sales tax
@@ -988,5 +997,68 @@ export const CHECKLIST_PHASES: ChecklistPhase[] = [
         tip: 'Standard DHCP & local DNS filtering work automatically over Ethernet on Linux with zero client software.',
       },
     ],
+  },
+];
+
+export const IN_STORE_BROWSE_GUIDE: InStoreStop[] = [
+  {
+    id: 'aisle-cases',
+    aisle: 'Aisle 63 · Cases',
+    title: 'See Cases on Display in Person',
+    reservedPick: 'Lancool 207 Black (SKU 732115 · $99.99)',
+    alternatives: [
+      'Lancool 207 White (SKU 732123 · $89.99, 2 left) — identical top-tier airflow for $10 LESS if a white/black look appeals.',
+      'Montech SKY 3 RGB Black (SKU 969766 · check shelf tag ~$79.99) — budget tempered-glass alternative.',
+      'Fall in love with another case on the floor? Verify: Full ATX board support, mesh front, ≥340mm GPU clearance, ≥160mm cooler height.',
+    ],
+    skipNote: 'Skip sealed glass-front “oven” cases with poor intake airflow.',
+  },
+  {
+    id: 'aisle-coolers',
+    aisle: 'Aisle 66 · Cooling',
+    title: 'Single-Tower Digital vs. Dual-Tower ARGB',
+    reservedPick: 'Thermalright Assassin X 120R Digital (SKU 959528 · $32.99)',
+    alternatives: [
+      'Thermalright Peerless Assassin 120 SE (SKU 959262 · $49.99, +$17) — stealth dual-tower upgrade.',
+      'Thermalright Phantom Spirit 120 SE ARGB (SKU 959296 · $59.99, +$27) — flagship dual-tower with standard 5V ARGB glow (still stays under $1,470 pre-tax).',
+    ],
+    skipNote: 'Skip buying extra thermal paste — Thermalright includes paste in the box.',
+  },
+  {
+    id: 'aisle-gpus',
+    aisle: 'Aisle 72 · GPUs & Open-Box Case',
+    title: 'Walk Past the Open-Box GPU Glass Case',
+    reservedPick: 'ASRock RX 9060 XT Challenger OC 16GB (SKU 873026 · $599.99)',
+    alternatives: [
+      'PowerColor RX 9060 XT Reaper 16GB (SKU 872010 · $599.99, 8 left) — same price/VRAM if you prefer a minimalist stealth-black shroud.',
+      'Gigabyte RX 9070 XT Gaming OC 16GB Open Box (SKU 799841 · $764.96, 1 unit) — +$165 GPU jump (~+$185 if also upgrading to the 850W Montech CENTURY II SKU 987511 for a 3×8-pin card).',
+      'Watch for unadvertised shelf Open-Box RX 9070 / 9070 GRE returns under $650 — all Open-Box GPUs keep Micro Center’s 30-day return window.',
+    ],
+    skipNote: 'DO NOT swap to SKU 863720 — that is the 8GB Reaper at the exact same $599.99!',
+  },
+  {
+    id: 'aisle-ssd-psu',
+    aisle: 'Aisle 70 (SSDs) & Aisle 64 (PSUs)',
+    title: 'Quick SSD & PSU Shelf Check',
+    reservedPick: 'Inland TN320 1TB TLC (SKU 529776 · $149.99) + MSI MAG A750GL 750W (SKU 596676 · $79.99)',
+    alternatives: [
+      'Ask BYOPC desk if Sandisk Optimus GX 7100 1TB Gen 4 TLC (SKU 028134 · $161.99 w/ -$18 BYO savings) stacks with your bundle (+$12 for Gen 4 speeds; otherwise keep the $149.99 Inland TLC).',
+      'Open-Box/Clearance SSDs: only jump to 2TB if you spot a 2TB TLC NVMe under ~$220 (skip the $349.99 regular 2TB shelf price).',
+      'Montech CENTURY II 850W Gold (SKU 987511 · Aisle 64) — only needed if upgrading to an RX 9070 XT.',
+    ],
+    skipNote: 'Skip the $169.99 Inland QN450 1TB right next to the TN320 — it is slower QLC and costs $20 more.',
+  },
+  {
+    id: 'aisle-extras',
+    aisle: 'Checkout & Cables · Small Extras',
+    title: 'Handy Build-Day Extras (Easy to Forget)',
+    reservedPick: 'Zero mandatory extras — all 6 core tower parts are in your pickup!',
+    alternatives: [
+      'DisplayPort 1.4 cable (6ft–10ft, ~$10–$15) if you don’t already have a spare DP cable for the 4K monitor.',
+      'Cat6 Ethernet patch cable (exact length for your desk run) if needed.',
+      '16GB–32GB USB-A flash drive (~$5–$8 near checkout) as a dedicated Linux installer stick.',
+      'Long-shaft magnetic Phillips #2 screwdriver + Velcro cable ties if you don’t have one at home.',
+    ],
+    skipNote: 'Skip extended protection plans (full manufacturer warranty + 30-day MC returns apply) and anti-static wrist straps. Note: bundle items (742940 + 660753 + 784686) stay tied together as a 3-in-1 bundle ($479.99) — individual non-bundle parts can be swapped 1-for-1 at the register!',
   },
 ];

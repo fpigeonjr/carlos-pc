@@ -5,6 +5,7 @@ import {
   BUILD_PRESETS,
   CHECKLIST_PHASES,
   GAME_MATRIX,
+  IN_STORE_BROWSE_GUIDE,
   MICRO_CENTER_AUSTIN,
   PART_SLOTS,
 } from '../data/buildData';
@@ -498,6 +499,56 @@ const initialSsdDelta = crucial2.price - inland1.price;
             <div id="shopping-online-list" class="mt-4 space-y-2.5"></div>
           </section>
         </div>
+
+        <!-- In-Store Walk-Around Alternatives Guide -->
+        <section class="card-panel rounded-2xl p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ctp-surface0 pb-3">
+            <div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-teal">Post-Pickup Walk-Around Guide</div>
+              <h3 class="mt-0.5 text-base font-bold text-ctp-text">
+                Worth Checking While You’re Walking the Austin Aisles
+              </h3>
+            </div>
+            <span class="rounded-full border border-ctp-teal/40 bg-ctp-teal/10 px-2.5 py-0.5 text-[11px] font-semibold text-ctp-teal">
+              Non-bundle items swap 1-for-1 at register
+            </span>
+          </div>
+          <p class="mt-2.5 text-xs leading-relaxed text-ctp-subtext0">
+            Grab your 18-minute pickup order first so your low-stock parts are locked in, then browse these exact aisles
+            before checking out (or swap non-bundle items 1-for-1 with your receipt).
+          </p>
+
+          <div class="mt-4 grid gap-3 md:grid-cols-2">
+            {
+              IN_STORE_BROWSE_GUIDE.map((stop) => (
+                <div id={stop.id} class="card-panel-subtle flex flex-col justify-between rounded-xl p-4 last:odd:md:col-span-2">
+                  <div>
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <span class="rounded-md border border-ctp-blue/35 bg-ctp-blue/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-ctp-blue">
+                        {stop.aisle}
+                      </span>
+                    </div>
+                    <h4 class="mt-2 text-sm font-bold text-ctp-text">{stop.title}</h4>
+                    <div class="mt-1 text-[11px] text-ctp-green">
+                      <strong>Reserved:</strong> {stop.reservedPick}
+                    </div>
+                    <ul class="mt-2.5 space-y-1.5">
+                      {stop.alternatives.map((alt) => (
+                        <li class="flex items-start gap-2 text-xs leading-relaxed text-ctp-subtext1">
+                          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ctp-teal" />
+                          <span>{alt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div class="mt-3 rounded-lg border border-ctp-yellow/30 bg-ctp-yellow/10 px-2.5 py-1.5 text-[11px] text-ctp-yellow/95">
+                    <strong>Skip / Watch out:</strong> {stop.skipNote}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </section>
 
         <!-- Nov 2026 Market & Micro Center Tips -->
         <section class="card-panel rounded-2xl p-5">
