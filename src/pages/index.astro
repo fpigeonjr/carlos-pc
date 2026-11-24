@@ -34,14 +34,26 @@ const initialOtd = initialSubtotal + initialTaxAmount;
 const initialDelta = initialSubtotal - BUILD_META.budgetTarget;
 const initialPct = Math.min(100, Math.max(0, (initialSubtotal / BUILD_META.budgetTarget) * 100));
 
+const initialBadgeClass =
+  initialDelta <= 0
+    ? 'inline-flex items-center rounded-full border border-ctp-green/40 bg-ctp-green/15 px-2.5 py-0.5 text-xs font-semibold text-ctp-green'
+    : initialDelta <= 125
+      ? 'inline-flex items-center rounded-full border border-ctp-peach/45 bg-ctp-peach/15 px-2.5 py-0.5 text-xs font-semibold text-ctp-peach'
+      : 'inline-flex items-center rounded-full border border-ctp-red/45 bg-ctp-red/15 px-2.5 py-0.5 text-xs font-semibold text-ctp-red';
+const initialBarClass =
+  initialDelta <= 0
+    ? 'h-full rounded-full bg-gradient-to-r from-ctp-teal to-ctp-green transition-all duration-300'
+    : initialDelta <= 125
+      ? 'h-full rounded-full bg-gradient-to-r from-ctp-yellow to-ctp-peach transition-all duration-300'
+      : 'h-full rounded-full bg-gradient-to-r from-ctp-peach to-ctp-red transition-all duration-300';
+
 const totalChecklistSteps = CHECKLIST_PHASES.reduce((sum, p) => sum + p.items.length, 0);
 
 const ssdSlot = PART_SLOTS.find((s) => s.id === 'ssd')!;
-const sn850x1 = ssdSlot.options.find((o) => o.id === 'sn850x-1tb')!;
-const sn850x2 = ssdSlot.options.find((o) => o.id === 'sn850x-2tb')!;
-const inland1 = ssdSlot.options.find((o) => o.id === 'inland-1tb-mc')!;
-const initialSsdDelta = sn850x2.price - sn850x1.price;
-const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn850x1.price) * 100);
+const inland1 = ssdSlot.options.find((o) => o.id === 'inland-tn320-1tb')!;
+const crucial2 = ssdSlot.options.find((o) => o.id === 'crucial-p510-2tb')!;
+const online1 = ssdSlot.options.find((o) => o.id === 'online-1tb-hunt')!;
+const initialSsdDelta = crucial2.price - inland1.price;
 ---
 
 <Layout>
@@ -128,7 +140,7 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
             <span id="hud-subtotal" class="font-mono text-2xl font-bold text-ctp-text">{fmtMoney(initialSubtotal)}</span>
             <span
               id="hud-budget-badge"
-              class="inline-flex items-center rounded-full border border-ctp-green/40 bg-ctp-green/15 px-2.5 py-0.5 text-xs font-semibold text-ctp-green"
+              class={initialBadgeClass}
             >
               {
                 initialDelta <= 0
@@ -147,7 +159,7 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
           <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-ctp-surface0">
             <div
               id="hud-progress-bar"
-              class="h-full rounded-full bg-gradient-to-r from-ctp-teal to-ctp-green transition-all duration-300"
+              class={initialBarClass}
               style={`width: ${initialPct.toFixed(1)}%`}
             >
             </div>
@@ -494,8 +506,8 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
               <div class="font-semibold text-ctp-peach">1. Why the Austin AM5 Bundle Is Non-Negotiable</div>
               <p class="mt-1">
-                2026 memory shortages ("RAMageddon") drove standalone DDR5-6000 and SSD tags up sharply. Micro Center’s
-                3-in-1 bundle saves ~$200–$350 over online individual parts — more than paying for the drive.
+                2026 memory shortages ("RAMageddon") drove standalone DDR5-6000 up to $249–$569. Micro Center’s AM5
+                bundles save $250–$400 over standalone parts — easily paying for the trip.
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
@@ -514,10 +526,10 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
-              <div class="font-semibold text-ctp-sky">4. Price-Match &amp; Inland NVMe Specials</div>
+              <div class="font-semibold text-ctp-sky">4. Price-Match &amp; Inland TLC Specials</div>
               <p class="mt-1">
                 Micro Center price-matches major retailers (Amazon shipped/sold by Amazon, Best Buy, Newegg) on
-                identical SKUs, and their house-brand Inland TLC Gen 4 SSDs often undercut online Black Friday deals.
+                identical SKUs. In-store, pick TLC drives like the $169.99 Inland TN320 (SKU 529776) over QLC models.
               </p>
             </div>
           </div>
@@ -542,78 +554,78 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
               </p>
             </div>
             <div class="rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-1.5 text-xs">
-              <span id="ssd-delta-label">{sn850x1.shortName} → {sn850x2.shortName}:</span>{' '}
+              <span id="ssd-delta-label">{inland1.shortName} → {crucial2.shortName}:</span>{' '}
               <strong id="ssd-delta-amount" class="font-mono text-ctp-peach">+{fmtMoney(initialSsdDelta)}</strong>
             </div>
           </div>
 
           <div class="mt-4 grid gap-3 md:grid-cols-3">
-            <!-- 1TB Card -->
-            <div class="card-panel-subtle rounded-xl p-4">
-              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Default 1TB (DRAM)</div>
-              <div class="mt-1 text-sm font-bold text-ctp-text">WD_BLACK SN850X 1TB</div>
-              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-text">{fmtMoney(sn850x1.price)}</div>
-              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-subtext0">{fmtMoney(sn850x1.price)} / TB</div>
+            <!-- 1TB MC Card -->
+            <div class="card-panel-subtle rounded-xl border-ctp-green/35 p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Best MC Austin 1TB (TLC)</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">Inland TN320 1TB (SKU 529776)</div>
+              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(inland1.price)}</div>
+              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-green/90">{fmtMoney(inland1.price)} / TB · 25+ in stock</div>
               <p class="mt-2 text-xs text-ctp-subtext0">
                 ~96GB used by Linux + 3 core games → <strong>~835GB free</strong> for 10–15 more Steam titles.
               </p>
               <button
                 type="button"
-                data-quick-ssd="sn850x-1tb"
-                data-quick-ssd-label="1TB SN850X"
-                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
-              >
-                Select 1TB SN850X
-              </button>
-            </div>
-
-            <!-- 2TB Card -->
-            <div class="card-panel-subtle rounded-xl border-ctp-green/35 p-4">
-              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Black Friday 2TB Sweet Spot</div>
-              <div class="mt-1 text-sm font-bold text-ctp-text">WD_BLACK SN850X 2TB</div>
-              <div id="ssd-2tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(sn850x2.price)}</div>
-              <div id="ssd-2tb-pertb" class="font-mono text-xs text-ctp-green/90">
-                {fmtMoney(sn850x2.price / 2)} / TB ({initialSsdPctSaved}% cheaper/TB)
-              </div>
-              <p class="mt-2 text-xs text-ctp-subtext0">
-                Double the storage for a modest jump — leaves room for huge AAA installs or a future Windows dual-boot.
-              </p>
-              <button
-                type="button"
-                data-quick-ssd="sn850x-2tb"
-                data-quick-ssd-label="2TB SN850X"
-                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
-              >
-                Select 2TB SN850X
-              </button>
-            </div>
-
-            <!-- Micro Center 1TB Inland Card -->
-            <div class="card-panel-subtle rounded-xl p-4">
-              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-blue">Micro Center In-Store Option</div>
-              <div class="mt-1 text-sm font-bold text-ctp-text">Inland 1TB PCIe 4.0 (TLC)</div>
-              <div id="ssd-inland-price" class="mt-2 font-mono text-2xl font-bold text-ctp-blue">{fmtMoney(inland1.price)}</div>
-              <div class="font-mono text-xs text-ctp-subtext0">Check Austin shelf flyers</div>
-              <p class="mt-2 text-xs text-ctp-subtext0">
-                House-brand loss-leader deals often beat online NAND inflation — grab Performance Plus / TN470 TLC.
-              </p>
-              <button
-                type="button"
-                data-quick-ssd="inland-1tb-mc"
+                data-quick-ssd="inland-tn320-1tb"
                 data-quick-ssd-label="Inland 1TB"
                 class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
               >
                 Select Inland 1TB
               </button>
             </div>
+
+            <!-- 2TB MC Card -->
+            <div class="card-panel-subtle rounded-xl p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Austin 2TB Floor (SKU 843102)</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">Crucial P510 2TB Gen 5</div>
+              <div id="ssd-2tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-text">{fmtMoney(crucial2.price)}</div>
+              <div id="ssd-2tb-pertb" class="font-mono text-xs text-ctp-subtext0">
+                {fmtMoney(crucial2.price / 2)} / TB (no /TB savings)
+              </div>
+              <p class="mt-2 text-xs text-ctp-subtext0">
+                +$180 jump over 1TB right now in Austin — better to add a 2nd M.2 drive later once NAND prices drop.
+              </p>
+              <button
+                type="button"
+                data-quick-ssd="crucial-p510-2tb"
+                data-quick-ssd-label="Crucial 2TB"
+                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
+              >
+                Select Crucial 2TB
+              </button>
+            </div>
+
+            <!-- Online 1TB Hunt Card -->
+            <div class="card-panel-subtle rounded-xl p-4">
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-mauve">Online Deal Target</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">1TB Gen 4 TLC (Amazon/BB)</div>
+              <div id="ssd-online-price" class="mt-2 font-mono text-2xl font-bold text-ctp-mauve">{fmtMoney(online1.price)}</div>
+              <div class="font-mono text-xs text-ctp-subtext0">Check flash sales tonight</div>
+              <p class="mt-2 text-xs text-ctp-subtext0">
+                Order online if you spot a 1TB TLC Gen 4 deal around $110–$135 to shave ~$40 off Austin’s $169.99 tag.
+              </p>
+              <button
+                type="button"
+                data-quick-ssd="online-1tb-hunt"
+                data-quick-ssd-label="Online 1TB"
+                class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
+              >
+                Select Online 1TB
+              </button>
+            </div>
           </div>
 
-          <div id="ssd-verdict-box" class="mt-4 rounded-xl border border-ctp-green/40 bg-ctp-green/10 p-4 text-sm text-ctp-green">
+          <div id="ssd-verdict-box" class="mt-4 rounded-xl border border-ctp-blue/40 bg-ctp-blue/10 p-4 text-sm text-ctp-blue">
             <strong class="font-semibold">
-              Verdict: Minimal Cost Jump ({fmtMoney(initialSsdDelta)}) — 2TB Is Worth Grabbing!
+              Verdict: 100% Stick with 1TB Right Now!
             </strong>{' '}
-            Doubling storage for ≤$65 drops your $/TB by {initialSsdPctSaved}% and adds years of Steam + optional
-            Windows dual-boot headroom.
+            At a {fmtMoney(initialSsdDelta)} jump ({inland1.shortName} → {crucial2.shortName}), 2TB costs more per TB
+            than 1TB. Save the money today and drop a second M.2 drive into slot #2 once NAND prices cool off.
           </div>
 
           <!-- Storage Footprint Bar -->

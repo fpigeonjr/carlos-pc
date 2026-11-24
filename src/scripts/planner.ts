@@ -23,7 +23,7 @@ interface PlannerState {
   activeTab: TabId;
 }
 
-const STORAGE_KEY = 'pc-build-planner-v2';
+const STORAGE_KEY = 'pc-build-planner-v3';
 
 const defaultSelections = (): Record<SlotId, string> => {
   const result = {} as Record<SlotId, string>;
@@ -522,12 +522,12 @@ export function initPlanner(): void {
     const selectedSsd = getOption('ssd', state.selections.ssd);
 
     // Compare against the user's active 1TB / 2TB choices when selected
-    const oneTbRef = selectedSsd.capacityTb === 1 ? selectedSsd : getOption('ssd', 'sn850x-1tb');
-    const twoTbRef = selectedSsd.capacityTb === 2 ? selectedSsd : getOption('ssd', 'sn850x-2tb');
+    const oneTbRef = selectedSsd.capacityTb === 1 ? selectedSsd : getOption('ssd', 'inland-tn320-1tb');
+    const twoTbRef = selectedSsd.capacityTb === 2 ? selectedSsd : getOption('ssd', 'crucial-p510-2tb');
 
-    const sn850x1 = getOption('ssd', 'sn850x-1tb');
-    const sn850x2 = getOption('ssd', 'sn850x-2tb');
-    const inland1 = getOption('ssd', 'inland-1tb-mc');
+    const inland1 = getOption('ssd', 'inland-tn320-1tb');
+    const crucial2 = getOption('ssd', 'crucial-p510-2tb');
+    const online1 = getOption('ssd', 'online-1tb-hunt');
 
     const oneTbRefPrice = getEffectivePrice(oneTbRef);
     const twoTbRefPrice = getEffectivePrice(twoTbRef);
@@ -540,21 +540,21 @@ export function initPlanner(): void {
     const el1PerTb = document.getElementById('ssd-1tb-pertb');
     const el2Price = document.getElementById('ssd-2tb-price');
     const el2PerTb = document.getElementById('ssd-2tb-pertb');
-    const elInland = document.getElementById('ssd-inland-price');
+    const elOnline = document.getElementById('ssd-online-price');
     const elDelta = document.getElementById('ssd-delta-amount');
     const elDeltaLabel = document.getElementById('ssd-delta-label');
     const elVerdict = document.getElementById('ssd-verdict-box');
 
-    const p1 = getEffectivePrice(sn850x1);
-    const p2 = getEffectivePrice(sn850x2);
-    const pInland = getEffectivePrice(inland1);
+    const p1 = getEffectivePrice(inland1);
+    const p2 = getEffectivePrice(crucial2);
+    const pOnline = getEffectivePrice(online1);
     const snPct = p1 > 0 ? Math.round(((p1 - p2 / 2) / p1) * 100) : 0;
 
     if (el1Price) el1Price.textContent = fmtMoney(p1);
     if (el1PerTb) el1PerTb.textContent = `${fmtMoney(p1)} / TB`;
     if (el2Price) el2Price.textContent = fmtMoney(p2);
-    if (el2PerTb) el2PerTb.textContent = `${fmtMoney(p2 / 2)} / TB (${snPct > 0 ? `${snPct}% cheaper/TB` : 'no /TB discount'})`;
-    if (elInland) elInland.textContent = fmtMoney(pInland);
+    if (el2PerTb) el2PerTb.textContent = `${fmtMoney(p2 / 2)} / TB (${snPct > 0 ? `${snPct}% cheaper/TB` : 'no /TB savings'})`;
+    if (elOnline) elOnline.textContent = fmtMoney(pOnline);
     if (elDeltaLabel) elDeltaLabel.textContent = `${oneTbRef.shortName} → ${twoTbRef.shortName}:`;
     if (elDelta) elDelta.textContent = `${delta >= 0 ? '+' : ''}${fmtMoney(delta)}`;
 
@@ -564,10 +564,10 @@ export function initPlanner(): void {
         elVerdict.innerHTML = `<strong class="font-semibold">Verdict: Minimal Cost Jump (${fmtMoney(delta)}) — 2TB Is Worth Grabbing!</strong> Upgrading from ${escapeHtml(oneTbRef.shortName)} to ${escapeHtml(twoTbRef.shortName)} for ≤$65 drops your $/TB by ${pctSavedPerTb}% and adds years of Steam + optional Windows dual-boot headroom.`;
       } else if (delta <= 95) {
         elVerdict.className = 'mt-4 rounded-xl border border-ctp-yellow/40 bg-ctp-yellow/10 p-4 text-sm text-ctp-yellow';
-        elVerdict.innerHTML = `<strong class="font-semibold">Verdict: Borderline Gap (${fmtMoney(delta)}) — Stick with 1TB Unless Under Budget.</strong> Comparing ${escapeHtml(oneTbRef.shortName)} vs. ${escapeHtml(twoTbRef.shortName)}: 1TB easily holds Linux + Marvel Rivals + Valheim + Risk of Rain 2 (~96GB total) with ~835GB free, and the B650 board leaves 2 open M.2 slots for later.`;
+        elVerdict.innerHTML = `<strong class="font-semibold">Verdict: Borderline Gap (${fmtMoney(delta)}) — Stick with 1TB Unless Under Budget.</strong> Comparing ${escapeHtml(oneTbRef.shortName)} vs. ${escapeHtml(twoTbRef.shortName)}: 1TB easily holds Linux + Marvel Rivals + Valheim + Risk of Rain 2 (~96GB total) with ~835GB free, leaving extra M.2 slots open for later.`;
       } else {
         elVerdict.className = 'mt-4 rounded-xl border border-ctp-blue/40 bg-ctp-blue/10 p-4 text-sm text-ctp-blue';
-        elVerdict.innerHTML = `<strong class="font-semibold">Verdict: Stick with 1TB!</strong> At a ${fmtMoney(delta)} jump (${escapeHtml(oneTbRef.shortName)} → ${escapeHtml(twoTbRef.shortName)}), keep the savings in your GPU/bundle budget and drop a second M.2 drive into slot #2 when NAND prices cool off.`;
+        elVerdict.innerHTML = `<strong class="font-semibold">Verdict: 100% Stick with 1TB Right Now!</strong> At a ${fmtMoney(delta)} jump (${escapeHtml(oneTbRef.shortName)} → ${escapeHtml(twoTbRef.shortName)}), 2TB costs more per TB than 1TB. Save the money today and drop a second M.2 drive into slot #2 once NAND prices cool off.`;
       }
     }
 
