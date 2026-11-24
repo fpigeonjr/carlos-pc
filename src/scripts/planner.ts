@@ -23,7 +23,7 @@ interface PlannerState {
   activeTab: TabId;
 }
 
-const STORAGE_KEY = 'pc-build-planner-v3';
+const STORAGE_KEY = 'pc-build-planner-v4';
 
 const defaultSelections = (): Record<SlotId, string> => {
   const result = {} as Record<SlotId, string>;
@@ -522,10 +522,10 @@ export function initPlanner(): void {
     const selectedSsd = getOption('ssd', state.selections.ssd);
 
     // Compare against the user's active 1TB / 2TB choices when selected
-    const oneTbRef = selectedSsd.capacityTb === 1 ? selectedSsd : getOption('ssd', 'inland-tn320-1tb');
+    const oneTbRef = selectedSsd.capacityTb === 1 ? selectedSsd : getOption('ssd', 'sandisk-gx7100-1tb');
     const twoTbRef = selectedSsd.capacityTb === 2 ? selectedSsd : getOption('ssd', 'crucial-p510-2tb');
 
-    const inland1 = getOption('ssd', 'inland-tn320-1tb');
+    const sandisk1 = getOption('ssd', 'sandisk-gx7100-1tb');
     const crucial2 = getOption('ssd', 'crucial-p510-2tb');
     const online1 = getOption('ssd', 'online-1tb-hunt');
 
@@ -545,7 +545,7 @@ export function initPlanner(): void {
     const elDeltaLabel = document.getElementById('ssd-delta-label');
     const elVerdict = document.getElementById('ssd-verdict-box');
 
-    const p1 = getEffectivePrice(inland1);
+    const p1 = getEffectivePrice(sandisk1);
     const p2 = getEffectivePrice(crucial2);
     const pOnline = getEffectivePrice(online1);
     const snPct = p1 > 0 ? Math.round(((p1 - p2 / 2) / p1) * 100) : 0;

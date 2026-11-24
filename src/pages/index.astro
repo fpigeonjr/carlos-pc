@@ -50,10 +50,10 @@ const initialBarClass =
 const totalChecklistSteps = CHECKLIST_PHASES.reduce((sum, p) => sum + p.items.length, 0);
 
 const ssdSlot = PART_SLOTS.find((s) => s.id === 'ssd')!;
-const inland1 = ssdSlot.options.find((o) => o.id === 'inland-tn320-1tb')!;
+const sandisk1 = ssdSlot.options.find((o) => o.id === 'sandisk-gx7100-1tb')!;
 const crucial2 = ssdSlot.options.find((o) => o.id === 'crucial-p510-2tb')!;
 const online1 = ssdSlot.options.find((o) => o.id === 'online-1tb-hunt')!;
-const initialSsdDelta = crucial2.price - inland1.price;
+const initialSsdDelta = crucial2.price - sandisk1.price;
 ---
 
 <Layout>
@@ -109,7 +109,7 @@ const initialSsdDelta = crucial2.price - inland1.price;
           <span class="text-xs font-semibold uppercase tracking-wider text-ctp-overlay2">Quick Build Presets</span>
           <span class="text-xs text-ctp-overlay1">Tap a preset, then fine-tune individual parts below</span>
         </div>
-        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
           {
             BUILD_PRESETS.map((preset) => (
               <button
@@ -554,28 +554,28 @@ const initialSsdDelta = crucial2.price - inland1.price;
               </p>
             </div>
             <div class="rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-1.5 text-xs">
-              <span id="ssd-delta-label">{inland1.shortName} → {crucial2.shortName}:</span>{' '}
+              <span id="ssd-delta-label">{sandisk1.shortName} → {crucial2.shortName}:</span>{' '}
               <strong id="ssd-delta-amount" class="font-mono text-ctp-peach">+{fmtMoney(initialSsdDelta)}</strong>
             </div>
           </div>
 
           <div class="mt-4 grid gap-3 md:grid-cols-3">
-            <!-- 1TB MC Card -->
+            <!-- 1TB MC BYO Card -->
             <div class="card-panel-subtle rounded-xl border-ctp-green/35 p-4">
-              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Best MC Austin 1TB (TLC)</div>
-              <div class="mt-1 text-sm font-bold text-ctp-text">Inland TN320 1TB (SKU 529776)</div>
-              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(inland1.price)}</div>
-              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-green/90">{fmtMoney(inland1.price)} / TB · 25+ in stock</div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Best MC Austin 1TB (BYO -$18)</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">Sandisk GX 7100 1TB Gen 4 (SKU 028134)</div>
+              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(sandisk1.price)}</div>
+              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-green/90">{fmtMoney(sandisk1.price)} / TB · Gen 4 TLC</div>
               <p class="mt-2 text-xs text-ctp-subtext0">
-                ~96GB used by Linux + 3 core games → <strong>~835GB free</strong> for 10–15 more Steam titles.
+                $8 cheaper than Gen 3 Inland ($169.99) via BYO Combo! Leaves <strong>~835GB free</strong> after OS + 3 games.
               </p>
               <button
                 type="button"
-                data-quick-ssd="inland-tn320-1tb"
-                data-quick-ssd-label="Inland 1TB"
+                data-quick-ssd="sandisk-gx7100-1tb"
+                data-quick-ssd-label="Sandisk 1TB Gen4"
                 class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
               >
-                Select Inland 1TB
+                Select Sandisk 1TB Gen4
               </button>
             </div>
 
@@ -624,7 +624,7 @@ const initialSsdDelta = crucial2.price - inland1.price;
             <strong class="font-semibold">
               Verdict: 100% Stick with 1TB Right Now!
             </strong>{' '}
-            At a {fmtMoney(initialSsdDelta)} jump ({inland1.shortName} → {crucial2.shortName}), 2TB costs more per TB
+            At a {fmtMoney(initialSsdDelta)} jump ({sandisk1.shortName} → {crucial2.shortName}), 2TB costs more per TB
             than 1TB. Save the money today and drop a second M.2 drive into slot #2 once NAND prices cool off.
           </div>
 
