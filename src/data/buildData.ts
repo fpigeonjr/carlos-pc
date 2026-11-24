@@ -85,29 +85,29 @@ export const MICRO_CENTER_AUSTIN = {
 export const PART_SLOTS: PartSlot[] = [
   {
     id: 'bundle',
-    title: 'CPU + Motherboard + 32GB DDR5 Bundle',
-    subtitle: 'Micro Center Austin 3-in-1 AM5 bundle — biggest savings in the Nov 2026 RAM market',
+    title: 'CPU + Motherboard + DDR5 Bundle',
+    subtitle: 'Live Micro Center Austin bundles (Nov 23 snapshot — huge savings off $249.99–$569.99 standalone DDR5)',
     icon: 'CPU',
-    defaultOptionId: 'mc-7700x-bundle',
+    defaultOptionId: 'mc-7500x3d-b850m',
     options: [
       {
-        id: 'mc-7700x-bundle',
-        name: 'AMD Ryzen 7 7700X + B650 ATX Wi-Fi + 32GB DDR5-6000',
-        shortName: 'Ryzen 7 7700X Bundle',
+        id: 'mc-7500x3d-b850m',
+        name: 'AMD Ryzen 5 7500X3D (Pre-installed) + ASRock B850M-C mATX + 16GB DDR5-6000',
+        shortName: '7500X3D + B850M (16GB)',
         price: 399.99,
         defaultChannel: 'microcenter',
-        badge: 'Best Value',
+        badge: 'Under-$1,500 Pick',
         specs: [
-          '8-Core / 16-Thread Zen 4 (AM5)',
-          'ATX B650 Motherboard (Gigabyte Gaming X AX v2 or ASUS TUF)',
-          '32GB (2×16GB) DDR5-6000 EXPO (G.Skill Flare X5)',
-          '2.5GbE Wired Ethernet + Wi-Fi/BT backup + 3× M.2 slots',
+          'SKU 521980 ($399.98 reg): Ryzen 5 7500X3D (3D V-Cache) pre-installed on ASRock B850M-C AM5',
+          'SKU 784686 ($249.99 reg): G.Skill Flare X5 16GB (1×16GB) DDR5-6000',
+          'Bundle Reg. $649.97 → Save $249.98 · Micro Center Featured Exclusive',
+          'Zero bent-pin risk (CPU pre-seated) + easy future 2nd 16GB stick upgrade',
         ],
         notes:
-          'Leaves maximum budget for a 16GB Radeon GPU while giving 8 strong cores for Valheim, Risk of Rain 2, and multitasking — plus a drop-in AM5 CPU upgrade path years from now.',
+          'The key to fitting a fast Navi 48 RX 9070 GRE (and even a 2TB SSD!) strictly under $1,500 pre-tax. 3D V-Cache shines in Valheim, Risk of Rain 2, and Marvel Rivals while minimizing single-channel RAM penalty, and Linux uses far less idle RAM than Windows.',
         watchOut:
-          'Confirm the bundle box includes 32GB (2×16GB), not a 16GB single-stick variant. Micro Center bundles must be returned as a full set.',
-        linuxTag: 'AM5 + 2.5GbE Linux-ready',
+          'This is a Micro-ATX board (ASRock B850M-C) — when mounting in an ATX case, match standoffs to mATX holes and remove any unused metal ATX standoffs behind the board!',
+        linuxTag: '3D V-Cache + B850 AM5',
         links: [
           {
             label: 'MC AMD Bundles',
@@ -119,95 +119,85 @@ export const PART_SLOTS: PartSlot[] = [
             url: 'https://www.microcenter.com/site/content/custom-pc-builder.aspx',
             channel: 'microcenter',
           },
-          {
-            label: 'Search 7700X Bundle',
-            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=7700X+bundle',
-            channel: 'microcenter',
-          },
         ],
       },
       {
-        id: 'mc-7600x3d-bundle',
-        name: 'AMD Ryzen 5 7600X3D / 7500X3D + B650/B850 + 32GB DDR5',
-        shortName: 'Ryzen 5 X3D Bundle',
-        price: 429.99,
-        defaultChannel: 'microcenter',
-        badge: 'MC Exclusive X3D',
-        specs: [
-          '6-Core / 12-Thread with 96MB 3D V-Cache (AM5)',
-          'AM5 B650 or B850 Motherboard (Wi-Fi + Wired LAN)',
-          '32GB DDR5-6000 (verify vs 16GB $399.99 promo tier)',
-          'Super-low power draw & cool temps on air',
-        ],
-        notes:
-          'Micro Center exclusive 3D V-Cache sleeper! Big boost for CPU-heavy Unity games (Valheim mega-bases & late-game Risk of Rain 2) and high-FPS Marvel Rivals if upgrading past 60Hz later.',
-        watchOut:
-          'The $399.99 7500X3D/7600X3D promos sometimes ship with 16GB RAM or an mATX board (e.g., ASRock B850M-C). Verify RAM capacity and remove unused ATX standoffs if installing an mATX board.',
-        linuxTag: '3D V-Cache + cool temps',
-        links: [
-          {
-            label: 'MC AMD Bundles',
-            url: 'https://www.microcenter.com/site/content/bundle-and-save.aspx',
-            channel: 'microcenter',
-          },
-          {
-            label: 'Search X3D Bundles',
-            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=7600X3D+7500X3D+bundle',
-            channel: 'microcenter',
-          },
-        ],
-      },
-      {
-        id: 'mc-9700x-bundle',
-        name: 'AMD Ryzen 7 9700X + B650/B850 ATX + 32GB DDR5-6000',
-        shortName: 'Ryzen 7 9700X Bundle',
-        price: 449.99,
-        defaultChannel: 'microcenter',
-        badge: 'Zen 5 Cool',
-        specs: [
-          '8-Core / 16-Thread Zen 5 (65W TDP efficiency)',
-          'ATX B650 / B850 Wi-Fi + 2.5GbE LAN',
-          '32GB (2×16GB) DDR5-6000 EXPO',
-          'Runs noticeably cooler & quieter than 7700X',
-        ],
-        notes:
-          'Newer Zen 5 silicon with whisper-quiet 65W efficiency — strong backup if the 7700X bundle is out of stock at Micro Center Austin.',
-        watchOut: 'Check shelf price in-store; worth grabbing if within $50 of the 7700X bundle.',
-        linuxTag: 'Zen 5 + 65W quiet',
-        links: [
-          {
-            label: 'MC AMD Bundles',
-            url: 'https://www.microcenter.com/site/content/bundle-and-save.aspx',
-            channel: 'microcenter',
-          },
-          {
-            label: 'Search 9700X Bundle',
-            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=9700X+bundle',
-            channel: 'microcenter',
-          },
-        ],
-      },
-      {
-        id: 'mc-7800x3d-bundle',
-        name: 'AMD Ryzen 7 7800X3D + B650E/X870 + 32GB DDR5-6000',
-        shortName: 'Ryzen 7 7800X3D Bundle',
+        id: 'mc-9700x-b650',
+        name: 'AMD Ryzen 7 9700X + Gigabyte B650 Gaming X AX V2 + 32GB DDR5-6000',
+        shortName: '9700X + B650 (32GB)',
         price: 599.99,
         defaultChannel: 'microcenter',
-        badge: 'Stretch Tier',
+        badge: 'Best 32GB Value',
         specs: [
-          '8-Core / 16-Thread Gaming Legend (96MB 3D V-Cache)',
-          'Enthusiast B650E or X870 ATX Motherboard',
-          '32GB (2×16GB) DDR5-6000 EXPO',
-          'Endgame gaming CPU with years of headroom',
+          'CPU SKU 721217 ($249.99 reg): Ryzen 7 9700X 8C/16T Zen 5 (65W)',
+          'RAM SKU 440792 ($569.99 reg): G.Skill Flare X5 32GB (2×16GB) DDR5-6000',
+          'Mobo SKU 660753 ($169.99 reg): Gigabyte B650 Gaming X AX V2 ATX',
+          'Bundle Reg. $989.97 → Save $389.98 · 2.5GbE LAN + Wi-Fi 6E + 3× M.2',
         ],
         notes:
-          'Pushes the total over $1,500 when paired with an RX 9070/XT, but included here in case Black Friday Austin pricing dips into the $529–$550 range.',
-        watchOut: 'At 4K 60Hz, spending an extra $200 on CPU instead of GPU rarely shows up in frame rate.',
-        linuxTag: 'Flagship AM5 X3D',
+          'Unbeatable 32GB dual-channel value in the 2026 memory market: standalone 32GB DDR5 is $569.99, so you basically get the 8-core Zen 5 CPU + full ATX board for $30 extra. Pairs great with the $647.96 Open-Box RX 9070 GRE if flexing ~$65 over $1,500.',
+        watchOut:
+          'Skip the $479.99 7600X3D bundle (still only 16GB RAM) — either stick with the $399.99 7500X3D or jump straight here for 32GB dual-channel + 8 cores.',
+        linuxTag: 'Zen 5 + 32GB + 2.5GbE',
         links: [
           {
-            label: 'Search 7800X3D Bundle',
-            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=7800X3D+bundle',
+            label: 'MC AMD Bundles',
+            url: 'https://www.microcenter.com/site/content/bundle-and-save.aspx',
+            channel: 'microcenter',
+          },
+          {
+            label: 'MC Combo Builder',
+            url: 'https://www.microcenter.com/site/content/custom-pc-builder.aspx',
+            channel: 'microcenter',
+          },
+        ],
+      },
+      {
+        id: 'mc-9700x-b850',
+        name: 'AMD Ryzen 7 9700X + Gigabyte B850 Gaming X WiFi6E + 32GB DDR5-6000',
+        shortName: '9700X + B850 (32GB)',
+        price: 629.99,
+        defaultChannel: 'microcenter',
+        badge: '+$30 B850',
+        specs: [
+          'CPU SKU 721217 ($249.99 reg): Ryzen 7 9700X 8C/16T Zen 5',
+          'RAM SKU 440792 ($569.99 reg): G.Skill Flare X5 32GB DDR5-6000',
+          'Mobo SKU 792820 ($209.99 reg): Gigabyte B850 Gaming X WiFi6E ATX',
+          'Bundle Reg. $1,029.97 → Save $399.98 · Newer B850 chipset + PCIe 5.0',
+        ],
+        notes:
+          'Only +$30 over the B650 combo to step up to the newer Gigabyte B850 Gaming X WiFi6E board ($40 higher regular price, saving $399.98 total).',
+        watchOut: 'Worth the $30 bump for PCIe 5.0 GPU slot longevity; skip if keeping every dollar under budget.',
+        linuxTag: 'Zen 5 + B850 PCIe 5.0',
+        links: [
+          {
+            label: 'MC AMD Bundles',
+            url: 'https://www.microcenter.com/site/content/bundle-and-save.aspx',
+            channel: 'microcenter',
+          },
+        ],
+      },
+      {
+        id: 'mc-7700x3d-b650',
+        name: 'AMD Ryzen 7 7700X3D + Gigabyte B650 Gaming X AX V2 + 32GB DDR5-6000',
+        shortName: '7700X3D + B650 (32GB)',
+        price: 649.99,
+        defaultChannel: 'microcenter',
+        badge: '8-Core X3D',
+        specs: [
+          'CPU SKU 061077 ($279.99 reg): AMD Ryzen 7 7700X3D (3D V-Cache)',
+          'RAM SKU 440792 ($569.99 reg): G.Skill Flare X5 32GB DDR5-6000',
+          'Mobo SKU 660753 ($169.99 reg): Gigabyte B650 Gaming X AX V2 ATX',
+          'Bundle Reg. $1,019.97 → Save $369.98 · Huge gaming cache boost',
+        ],
+        notes:
+          'Only +$50 over the 9700X bundle to get 8-core 3D V-Cache + 32GB DDR5 — awesome for CPU-heavy Valheim mega-bases, late-game Risk of Rain 2, and high-FPS Marvel Rivals.',
+        watchOut: 'At 4K 60Hz, prioritize GPU tier first; Micro Center bundles must be returned as a complete 3-in-1 set.',
+        linuxTag: '8-Core X3D + 32GB',
+        links: [
+          {
+            label: 'MC AMD Bundles',
+            url: 'https://www.microcenter.com/site/content/bundle-and-save.aspx',
             channel: 'microcenter',
           },
         ],
@@ -216,64 +206,116 @@ export const PART_SLOTS: PartSlot[] = [
   },
   {
     id: 'gpu',
-    title: 'Graphics Card (16GB AMD Radeon)',
-    subtitle: 'GPU-first allocation for 4K + frictionless open-source Mesa/RADV Linux drivers',
+    title: 'Graphics Card (AMD Radeon RDNA 4)',
+    subtitle: 'Live Micro Center Austin GPU stock (Nov 23) — open-source Mesa/RADV Linux drivers',
     icon: 'GPU',
-    defaultOptionId: 'rx-9070-16gb',
+    defaultOptionId: 'rx-9070-gre-hellhound',
     options: [
       {
-        id: 'rx-9070-16gb',
-        name: 'AMD Radeon RX 9070 16GB (RDNA 4)',
-        shortName: 'Radeon RX 9070 16GB',
-        price: 749.99,
+        id: 'rx-9070-gre-hellhound',
+        name: 'PowerColor AMD Radeon RX 9070 GRE Hellhound OC Triple-Fan 12GB (SKU 043349)',
+        shortName: 'RX 9070 GRE Hellhound',
+        price: 719.99,
         defaultChannel: 'microcenter',
-        badge: 'Under-$1,500 Fit',
+        badge: 'Best Live Buy',
         specs: [
-          '16GB GDDR6 VRAM — ideal for 4K textures',
-          'RDNA 4 architecture + FSR 4 upscaling',
-          'DisplayPort 2.1a + HDMI 2.1b (use DisplayPort on Linux!)',
-          '~220W TDP — runs cool & quiet on a 750W PSU',
+          'SKU 043349 · 9 in stock at Austin ($719.99, down from $729.99)',
+          'Bigger Navi 48 die · 48 Ray Accelerators · 12GB GDDR6 · PCIe 5.0',
+          '327mm card (340mm w/ bracket) · 2× 8-pin PCIe · 700W min PSU',
+          '~15–25% faster than RX 9060 XT 16GB at the exact same $719.99 price!',
         ],
         notes:
-          'Hits right under the $1,500 pre-tax target even in the Nov 2026 GPU market! Crushes 4K 60Hz in Marvel Rivals (with FSR), Valheim, and Risk of Rain 2 with huge headroom.',
+          'Clear standout in Austin’s live stock: costs the exact same $719.99 as the dual-fan ASRock RX 9060 XT 16GB, but uses the much faster Navi 48 die with quiet triple-fan cooling. Crushes 1080p/1440p and 4K w/ FSR on Linux Mesa/RADV.',
         watchOut:
-          'Online street pricing is ~$749 due to 2026 memory hikes (launch MSRP was $549). Check Micro Center Austin shelves & the Open-Box glass case for $649–$699 gems!',
+          'Use two separate 8-pin PCIe cables from the PSU (not one daisy-chained pigtail). Clears all 3 cases easily (340mm vs 375–415mm clearance). Check the 1 Open-Box unit at $647.96!',
         linuxTag: 'Open-source Mesa/RADV',
         links: [
+          {
+            label: 'MC SKU 043349',
+            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=043349',
+            channel: 'microcenter',
+          },
           {
             label: 'MC RX 9070 Stock',
             url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=RX+9070',
             channel: 'microcenter',
           },
+        ],
+      },
+      {
+        id: 'rx-9070-gre-openbox',
+        name: 'PowerColor RX 9070 GRE Hellhound OC 12GB — Austin Open Box (SKU 043349)',
+        shortName: 'RX 9070 GRE Open Box',
+        price: 647.96,
+        defaultChannel: 'microcenter',
+        badge: '1 Open Box!',
+        specs: [
+          'SKU 043349 · 1 Open Box listed at Austin from $647.96 ($72 off new!)',
+          'Same Navi 48 triple-fan Hellhound OC 12GB + 48 Ray Accelerators',
+          'Includes Micro Center’s full 30-day return coverage — inspect box at pickup',
+          'Brings 7500X3D build to $1,366 or 9700X 32GB build to $1,566!',
+        ],
+        notes:
+          'Best deal in the entire Austin store right now if still available tomorrow morning! Reserve immediately or check the Open-Box GPU glass case as soon as you walk in.',
+        watchOut:
+          'Only 1 Open-Box unit listed — reserve it online before driving up, and verify the card looks clean & complete at the counter.',
+        linuxTag: 'Open-source Mesa/RADV',
+        links: [
           {
-            label: 'Newegg RX 9070',
-            url: 'https://www.newegg.com/p/pl?d=RX+9070+16GB',
-            channel: 'online',
+            label: 'MC SKU 043349',
+            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=043349',
+            channel: 'microcenter',
+          },
+        ],
+      },
+      {
+        id: 'rx-9060-xt-challenger-16gb',
+        name: 'ASRock AMD Radeon RX 9060 XT Challenger OC Dual Fan 16GB (SKU 873026)',
+        shortName: 'RX 9060 XT 16GB',
+        price: 719.99,
+        defaultChannel: 'microcenter',
+        badge: '16GB VRAM Alt',
+        specs: [
+          'SKU 873026 · 25+ in stock at Austin ($719.99, reg $799.99)',
+          '16GB GDDR6 VRAM · Leaner Navi 44 die (~160W low power)',
+          'Cheapest 16GB Radeon in Austin ($80 less than $799.99 ASUS/Gigabyte models)',
+          'Requires FSR upscaling at 4K for demanding UE5 titles',
+        ],
+        notes:
+          'Solid backup if the RX 9070 GRE cards sell out or if you strongly prioritize 16GB VRAM over raw 4K framerate. Avoid paying $799.99 for the ASUS/Gigabyte 9060 XT models when this Challenger OC is $80 less.',
+        watchOut:
+          'At the same $719.99 price, the PowerColor RX 9070 GRE Hellhound delivers ~15–25% higher 4K performance and triple-fan cooling.',
+        linuxTag: 'Open-source Mesa/RADV',
+        links: [
+          {
+            label: 'MC SKU 873026',
+            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=873026',
+            channel: 'microcenter',
           },
           {
             label: 'PCPartPicker Search',
-            url: 'https://pcpartpicker.com/search/?q=RX+9070+16GB',
+            url: 'https://pcpartpicker.com/search/?q=RX+9060+XT+16GB',
             channel: 'reference',
           },
         ],
       },
       {
         id: 'rx-9070-xt-16gb',
-        name: 'AMD Radeon RX 9070 XT 16GB (PowerColor Hellhound / Reaper / Sapphire)',
-        shortName: 'Radeon RX 9070 XT 16GB',
+        name: 'AMD Radeon RX 9070 XT 16GB (Stretch / Check Austin Stock)',
+        shortName: 'RX 9070 XT 16GB',
         price: 869.99,
         defaultChannel: 'microcenter',
-        badge: '4K Max Power',
+        badge: '4K Max Stretch',
         specs: [
-          '16GB GDDR6 VRAM — flagship RDNA 4 performance',
-          '~15–20% faster than RX 9070 at 4K native/FSR',
+          '16GB GDDR6 VRAM — full Navi 48 flagship RDNA 4 performance',
           'DisplayPort 2.1a — effortless Linux Wayland/HDR',
           '~304W TDP (750W min; 850W PSU recommended)',
+          'Check Austin shelves & Open-Box case for sub-$820 drops',
         ],
         notes:
-          'Micro Center early Black Friday promos have featured custom cards like the PowerColor Hellhound OC at $869.99 (down from $950+ online). If you spot a base model or Open-Box near $779–$799 in Austin, snap it up!',
+          'Flagship 16GB RDNA 4 tier if flexing past $1,500 or spotting an Open-Box drop. Pairs best with the 850W PSU.',
         watchOut:
-          'Most models (Hellhound/Reaper) use 2× 8-pin PCIe, but heavy OC flagship variants (e.g., Red Devil) can require 3× 8-pin PCIe or 12V-2x6 — verify connector count on the box to match your PSU cables!',
+          'Most models (Hellhound/Reaper) use 2× 8-pin PCIe, but heavy OC flagship variants can require 3× 8-pin PCIe or 12V-2x6 — verify connector count on the box!',
         linuxTag: 'Open-source Mesa/RADV',
         links: [
           {
@@ -282,40 +324,9 @@ export const PART_SLOTS: PartSlot[] = [
             channel: 'microcenter',
           },
           {
-            label: 'Newegg RX 9070 XT',
-            url: 'https://www.newegg.com/p/pl?d=RX+9070+XT+16GB',
-            channel: 'online',
-          },
-          {
             label: 'PCPartPicker Search',
             url: 'https://pcpartpicker.com/search/?q=RX+9070+XT+16GB',
             channel: 'reference',
-          },
-        ],
-      },
-      {
-        id: 'rx-9060-xt-16gb',
-        name: 'AMD Radeon RX 9060 XT 16GB (In-Store Promo Target Only)',
-        shortName: 'Radeon RX 9060 XT 16GB',
-        price: 549.99,
-        defaultChannel: 'microcenter',
-        badge: 'Budget Saver',
-        specs: [
-          '16GB GDDR6 VRAM (skip the 8GB version for 4K!)',
-          'RDNA 4 + FSR 4 upscaling for 4K 60Hz medium/high',
-          'Very low ~160W power draw',
-          'Saves ~$200 if found near true promo pricing',
-        ],
-        notes:
-          'Only worth choosing if Micro Center Austin has an in-store promo under ~$550 — online scalpers have pushed 16GB units near $729, where the RX 9070 is a massively better buy.',
-        watchOut:
-          'Never pay $650+ for a 9060 XT 16GB when an RX 9070 16GB is ~$749. Always avoid 8GB cards for a 4K monitor.',
-        linuxTag: 'Open-source Mesa/RADV',
-        links: [
-          {
-            label: 'MC RX 9060 XT 16GB',
-            url: 'https://www.microcenter.com/search/search_results.aspx?Ntt=RX+9060+XT+16GB',
-            channel: 'microcenter',
           },
         ],
       },
@@ -460,7 +471,7 @@ export const PART_SLOTS: PartSlot[] = [
           'Includes thermal paste (TF7) in the box',
         ],
         notes:
-          'The best $38 in PC building. Quietly tames 7700X, 7800X3D, and future AM5 upgrades with zero liquid-cooler pump failure risk.',
+          'The best $38 in PC building. Quietly tames 7500X3D, 9700X, 7700X3D, and future AM5 upgrades with zero liquid-cooler pump failure risk.',
         watchOut:
           'Micro Center rarely stocks Thermalright — order online a few days before build day. Clears low-profile G.Skill Flare X5 (33mm) easily; taller RGB RAM just means clipping the front fan ~5mm higher. Always peel the clear plastic film off the cold plate!',
         linuxTag: 'OpenRGB 5V ARGB native',
@@ -521,7 +532,7 @@ export const PART_SLOTS: PartSlot[] = [
           'Standard 5V ARGB hub connects straight to motherboard (or LED button)',
         ],
         notes:
-          'Spacious, forgiving cable-management channels make it ideal for a first build — plus 4 big 140mm fans keep an RX 9070/XT cool even in warm Texas summers.',
+          'Spacious, forgiving cable-management channels make it ideal for a first build — plus 4 big 140mm fans keep an RX 9070 GRE / XT cool even in warm Texas summers.',
         watchOut: 'Larger mid-tower footprint (~478mm deep); double-check desk depth if placing on top of the desk.',
         linuxTag: '5V ARGB hub / LED button',
         links: [
@@ -670,12 +681,12 @@ export const PART_SLOTS: PartSlot[] = [
 
 export const BUILD_PRESETS: BuildPreset[] = [
   {
-    id: 'sweet-spot',
-    name: 'Under-$1,500 Sweet Spot',
-    tagline: '7700X Bundle + RX 9070 16GB + 1TB',
+    id: 'under-1500',
+    name: 'Under-$1,500 Winner ($1,438)',
+    tagline: '7500X3D ($400) + RX 9070 GRE ($720) + 1TB',
     selections: {
-      bundle: 'mc-7700x-bundle',
-      gpu: 'rx-9070-16gb',
+      bundle: 'mc-7500x3d-b850m',
+      gpu: 'rx-9070-gre-hellhound',
       ssd: 'sn850x-1tb',
       cooler: 'phantom-spirit-120-se-argb',
       case: 'montech-air-903-max',
@@ -683,12 +694,12 @@ export const BUILD_PRESETS: BuildPreset[] = [
     },
   },
   {
-    id: 'two-tb-sweet',
-    name: '2TB Upgrade (+$60)',
-    tagline: 'Same sweet spot + double SSD capacity',
+    id: 'under-1500-2tb',
+    name: '2TB Still Under $1,500 ($1,498)',
+    tagline: '7500X3D + RX 9070 GRE + 2TB SN850X',
     selections: {
-      bundle: 'mc-7700x-bundle',
-      gpu: 'rx-9070-16gb',
+      bundle: 'mc-7500x3d-b850m',
+      gpu: 'rx-9070-gre-hellhound',
       ssd: 'sn850x-2tb',
       cooler: 'phantom-spirit-120-se-argb',
       case: 'montech-air-903-max',
@@ -696,25 +707,25 @@ export const BUILD_PRESETS: BuildPreset[] = [
     },
   },
   {
-    id: 'max-4k',
-    name: '4K RX 9070 XT Beast',
-    tagline: 'Max 4K GPU + 850W PSU (watch MC promos!)',
+    id: 'openbox-value',
+    name: 'Open-Box Value ($1,366)',
+    tagline: '7500X3D + Austin Open-Box Hellhound ($648)',
     selections: {
-      bundle: 'mc-7700x-bundle',
-      gpu: 'rx-9070-xt-16gb',
+      bundle: 'mc-7500x3d-b850m',
+      gpu: 'rx-9070-gre-openbox',
       ssd: 'sn850x-1tb',
       cooler: 'phantom-spirit-120-se-argb',
       case: 'montech-air-903-max',
-      psu: 'psu-850w-gold',
+      psu: 'psu-750w-gold',
     },
   },
   {
-    id: 'x3d-shooter',
-    name: 'X3D Marvel Rivals Rig',
-    tagline: 'MC Exclusive 7600X3D + RX 9070 16GB',
+    id: 'openbox-32gb',
+    name: '32GB ATX + Open-Box ($1,566)',
+    tagline: '9700X 32GB ($600) + Open-Box Hellhound ($648)',
     selections: {
-      bundle: 'mc-7600x3d-bundle',
-      gpu: 'rx-9070-16gb',
+      bundle: 'mc-9700x-b650',
+      gpu: 'rx-9070-gre-openbox',
       ssd: 'sn850x-1tb',
       cooler: 'phantom-spirit-120-se-argb',
       case: 'montech-air-903-max',
@@ -731,7 +742,7 @@ export const GAME_MATRIX: GameProfile[] = [
     linuxBadgeTone: 'green',
     storageGb: 65,
     fourKNotes:
-      'UE5 is GPU-heavy at 4K; an RX 9070 / 9070 XT with FSR Quality/Balanced easily locks 60+ FPS at 4K High (and 120+ FPS if upgrading to a 144Hz monitor later).',
+      'UE5 is GPU-heavy at 4K; an RX 9070 GRE / 9070 XT with FSR Quality/Balanced easily locks 60+ FPS at 4K High (and 120+ FPS if upgrading to a 144Hz monitor later).',
     protonTip:
       'Use Steam Proton Hotfix or Proton Experimental — NetEase season patches occasionally need Valve’s quick Proton Hotfix updates.',
   },
@@ -742,7 +753,7 @@ export const GAME_MATRIX: GameProfile[] = [
     linuxBadgeTone: 'teal',
     storageGb: 2,
     fourKNotes:
-      'Runs effortlessly at 4K 60Hz on a 16GB Radeon. Large player-built bases are CPU-sensitive, so the 7700X / 7600X3D + 32GB DDR5 keeps frame times silky.',
+      'Runs effortlessly at 4K 60Hz on an RDNA 4 Radeon. Large player-built bases are CPU-sensitive, so the 7500X3D / 9700X / 7700X3D keeps frame times silky.',
     protonTip: 'Select the Vulkan renderer in Steam launch options for smoothest frame pacing on AMD Mesa/RADV.',
   },
   {
@@ -769,14 +780,14 @@ export const CHECKLIST_PHASES: ChecklistPhase[] = [
         tip: 'Locks Black Friday stock before the drive. No charge until you pick up.',
       },
       {
-        id: 'verify-32gb',
-        text: 'Double-check the bundle RAM kit is 32GB (2×16GB) DDR5-6000',
-        tip: 'Some budget promos swap in a single 16GB stick — confirm before checking out.',
+        id: 'verify-bundle',
+        text: 'Confirm your exact bundle tier at pickup: 7500X3D (1×16GB, mATX, CPU pre-installed) vs. 9700X/7700X3D (2×16GB, ATX)',
+        tip: 'Also note the bundle board size (mATX vs. ATX) so you set case standoffs properly on build day.',
       },
       {
         id: 'check-open-box',
         text: 'Walk past the Open-Box GPU & Case glass shelves in Austin',
-        tip: 'Micro Center Open-Box GPUs keep full 30-day return coverage and can knock $60–$120 off an RX 9070 XT.',
+        tip: 'Micro Center Open-Box GPUs keep full 30-day return coverage (like the $647.96 Open-Box RX 9070 GRE Hellhound).',
       },
       {
         id: 'check-dp-cable',
@@ -816,8 +827,8 @@ export const CHECKLIST_PHASES: ChecklistPhase[] = [
       },
       {
         id: 'install-cpu',
-        text: 'Drop the AM5 Ryzen CPU gently into the socket matching the gold triangle — zero downward force',
-        tip: 'Leave the black plastic socket cover on the retention bracket; it pops off automatically when you close the lever!',
+        text: 'CPU step: If you bought the 7500X3D Featured Bundle, SKIP seating — the CPU is already pre-installed! Otherwise drop the AM5 CPU in gently matching the gold triangle',
+        tip: 'Do not unlatch a pre-installed 7500X3D. For loose CPUs (9700X / 7700X3D), leave the black socket cover on the bracket — it pops off automatically when you close the lever.',
       },
       {
         id: 'install-nvme',
@@ -825,8 +836,8 @@ export const CHECKLIST_PHASES: ChecklistPhase[] = [
       },
       {
         id: 'install-ram',
-        text: 'Click both DDR5 sticks firmly into slots A2 and B2 (2nd and 4th from CPU)',
-        tip: 'DDR5 takes firmer pressure than you expect — verify both top/bottom latches click flat.',
+        text: 'Install DDR5 RAM: 1 stick (7500X3D bundle) goes in slot A2 only; 2 sticks (9700X/7700X3D) go in slots A2 and B2',
+        tip: 'Per the ASRock B850M-C manual, a single DIMM must go in A2 (2nd slot from CPU — not B2). Verify top/bottom latches click flat.',
       },
       {
         id: 'install-cooler',
@@ -856,7 +867,7 @@ export const CHECKLIST_PHASES: ChecklistPhase[] = [
       },
       {
         id: 'install-gpu',
-        text: 'Remove rear PCIe slot covers, click the Radeon RX 9070 / XT into the top PCIe x16 slot, screw bracket, and plug separate PCIe power cables',
+        text: 'Remove rear PCIe slot covers, click the Radeon RX 9070 GRE / XT into the top PCIe x16 slot, screw bracket, and plug two separate 8-pin PCIe power cables',
         tip: 'Use the GPU anti-sag bracket if one comes in the GPU or case box.',
       },
     ],

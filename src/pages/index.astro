@@ -52,7 +52,7 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
         <div>
           <div class="flex flex-wrap items-center gap-2 text-xs font-medium">
             <span class="rounded-full border border-ctp-red/45 bg-ctp-red/15 px-2.5 py-0.5 text-ctp-red">
-              Team Red AM5 + Radeon 16GB
+              Team Red AM5 + RDNA 4
             </span>
             <span class="rounded-full border border-ctp-blue/40 bg-ctp-blue/10 px-2.5 py-0.5 text-ctp-blue">
               Micro Center Austin Planner
@@ -501,15 +501,16 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
               <div class="font-semibold text-ctp-green">2. Check the Open-Box GPU Glass Case</div>
               <p class="mt-1">
-                Before grabbing a sealed RX 9070 / 9070 XT off the shelf, check Austin’s Open-Box section. Returned
-                cards keep Micro Center’s 30-day return policy and can bring an RX 9070 XT under $800.
+                Before grabbing a sealed RX 9070 GRE / XT off the shelf, check Austin’s Open-Box section. Returned cards
+                keep Micro Center’s 30-day return policy (e.g., an Open-Box RX 9070 GRE Hellhound at $647.96).
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
-              <div class="font-semibold text-ctp-yellow">3. Bundle Rules &amp; RAM Sanity Check</div>
+              <div class="font-semibold text-ctp-yellow">3. Bundle Tiers &amp; Return Policy</div>
               <p class="mt-1">
-                Confirm the bundle includes <strong>32GB (2×16GB)</strong> DDR5-6000 (not 16GB) and verify ATX vs. mATX
-                board size. Note that Micro Center requires returning all 3 bundle items together.
+                Know your bundle trade-off: the <strong>$399.99 7500X3D</strong> uses 1×16GB DDR5 + mATX (CPU
+                pre-installed), while the <strong>$599.99+ Ryzen 7</strong> bundles include 32GB (2×16GB) + full ATX.
+                Bundles must be returned as a complete set.
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
@@ -667,11 +668,12 @@ const initialSsdPctSaved = Math.round(((sn850x1.price - sn850x2.price / 2) / sn8
           <!-- Monitor & Network Notes -->
           <div class="mt-4 grid gap-3 sm:grid-cols-2">
             <div class="rounded-xl border border-ctp-blue/35 bg-ctp-blue/10 p-4 text-xs leading-relaxed text-ctp-text">
-              <div class="font-bold text-ctp-blue">4K Monitor on Linux → Always Use DisplayPort</div>
+              <div class="font-bold text-ctp-blue">4K Monitor on Linux → DisplayPort + Flexible Scaling</div>
               <p class="mt-1 text-ctp-subtext1">
-                AMD’s open-source Linux drivers deliver full bandwidth, FreeSync/VRR, and HDR cleanly over
-                <strong>DisplayPort</strong> (whereas HDMI 2.1 FRL is restricted by the HDMI Forum on Linux). Plug
-                the DisplayPort cable directly into the Radeon GPU’s lower ports, not the motherboard.
+                Always connect via <strong>DisplayPort</strong> on the GPU’s lower ports (AMD’s open-source Linux
+                drivers deliver full bandwidth &amp; VRR over DisplayPort). You also don’t need native 4K in heavy
+                games—<strong>1080p scales cleanly 4:1</strong> and <strong>1440p / FSR</strong> looks crisp while
+                giving the 12GB RX 9070 GRE tons of headroom.
               </p>
             </div>
             <div class="rounded-xl border border-ctp-teal/35 bg-ctp-teal/10 p-4 text-xs leading-relaxed text-ctp-text">

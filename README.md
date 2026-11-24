@@ -4,14 +4,14 @@ Interactive Astro + Tailwind CSS static dashboard (Catppuccin Mocha theme) hoste
 
 ## Build Summary
 - **Target Budget:** ~$1,500 pre-tax (tower only)
-- **Platform:** Full Team Red — AMD AM5 Micro Center Austin 3-in-1 Bundle + 16GB AMD Radeon RDNA 4 GPU
+- **Platform:** Full Team Red — AMD AM5 Micro Center Austin Bundle (`7500X3D` / `9700X` / `7700X3D`) + AMD Radeon RDNA 4 GPU (`RX 9070 GRE` / `RX 9060 XT` / `RX 9070 XT`)
 - **Target Games:** Marvel Rivals, Valheim, Risk of Rain 2 (all Linux/Proton friendly)
-- **Display & Network:** Existing 4K 60Hz monitor (via DisplayPort) + Wired Ethernet
+- **Display & Network:** Existing 4K 60Hz monitor via DisplayPort (supports 1080p 4:1 integer scale, 1440p, or 4K w/ FSR) + Wired Ethernet
 - **Aesthetics & Cooling:** Black ATX mesh mid-tower with tempered glass, standard 5V ARGB fans (OpenRGB-friendly), dual-tower air cooler
 - **Storage:** Starting at 1TB NVMe SSD with live 1TB vs. 2TB Black Friday $/TB math
 
 ## Features
-- **Interactive Configurator:** Swap Micro Center AM5 bundles, 16GB Radeon GPUs, SSDs, cases, coolers, and PSUs.
+- **Interactive Configurator:** Swap live Micro Center Austin AM5 bundles, RDNA 4 Radeon GPUs, SSDs, cases, coolers, and PSUs.
 - **In-Store Live Price Mode:** Edit any part's price directly in the browser (persisted in `localStorage`) while standing in Micro Center Austin to see instant pre-tax and TX 8.25% out-the-door totals.
 - **Shareable Build URLs:** Copy a link encoding part picks, custom shelf prices, store splits, and tax rate.
 - **Micro Center Austin vs. Online Split:** Toggle each part between Austin pickup and online ordering with interactive cart checkboxes.

@@ -23,7 +23,7 @@ interface PlannerState {
   activeTab: TabId;
 }
 
-const STORAGE_KEY = 'pc-build-planner-v1';
+const STORAGE_KEY = 'pc-build-planner-v2';
 
 const defaultSelections = (): Record<SlotId, string> => {
   const result = {} as Record<SlotId, string>;
