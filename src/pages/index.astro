@@ -50,10 +50,10 @@ const initialBarClass =
 const totalChecklistSteps = CHECKLIST_PHASES.reduce((sum, p) => sum + p.items.length, 0);
 
 const ssdSlot = PART_SLOTS.find((s) => s.id === 'ssd')!;
-const sandisk1 = ssdSlot.options.find((o) => o.id === 'sandisk-gx7100-1tb')!;
+const inland1 = ssdSlot.options.find((o) => o.id === 'inland-tn320-1tb')!;
 const crucial2 = ssdSlot.options.find((o) => o.id === 'crucial-p510-2tb')!;
 const online1 = ssdSlot.options.find((o) => o.id === 'online-1tb-hunt')!;
-const initialSsdDelta = crucial2.price - sandisk1.price;
+const initialSsdDelta = crucial2.price - inland1.price;
 ---
 
 <Layout>
@@ -513,23 +513,23 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
               <div class="font-semibold text-ctp-green">2. Check the Open-Box GPU Glass Case</div>
               <p class="mt-1">
-                Before grabbing a sealed RX 9070 GRE / XT off the shelf, check Austin’s Open-Box section. Returned cards
-                keep Micro Center’s 30-day return policy (e.g., an Open-Box RX 9070 GRE Hellhound at $647.96).
+                Before grabbing a sealed card off the shelf, check Austin’s Open-Box section. Returned cards keep
+                Micro Center’s 30-day return policy (e.g., an Open-Box 16GB RX 9070 XT Gaming OC at $764.96).
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
               <div class="font-semibold text-ctp-yellow">3. Bundle Tiers &amp; Return Policy</div>
               <p class="mt-1">
-                Know your bundle trade-off: the <strong>$399.99 7500X3D</strong> uses 1×16GB DDR5 + mATX (CPU
-                pre-installed), while the <strong>$599.99+ Ryzen 7</strong> bundles include 32GB (2×16GB) + full ATX.
-                Bundles must be returned as a complete set.
+                Know your bundle trade-off: the <strong>$399.99 7500X3D</strong> is mATX + 1×16GB, the
+                <strong>$479.99 7600X3D</strong> steps up to Full ATX B650 (3× M.2), and the <strong>$649.99+ Ryzen 7</strong>
+                bundles include 32GB (2×16GB). Bundles must be returned as a complete set.
               </p>
             </div>
             <div class="card-panel-subtle rounded-xl p-3.5 text-xs leading-relaxed text-ctp-subtext1">
               <div class="font-semibold text-ctp-sky">4. Price-Match &amp; Inland TLC Specials</div>
               <p class="mt-1">
                 Micro Center price-matches major retailers (Amazon shipped/sold by Amazon, Best Buy, Newegg) on
-                identical SKUs. In-store, pick TLC drives like the $169.99 Inland TN320 (SKU 529776) over QLC models.
+                identical SKUs. In-store, pick TLC drives like the $149.99 Inland TN320 (SKU 529776) over QLC models.
               </p>
             </div>
           </div>
@@ -554,28 +554,28 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
               </p>
             </div>
             <div class="rounded-xl border border-ctp-surface1 bg-ctp-mantle px-3 py-1.5 text-xs">
-              <span id="ssd-delta-label">{sandisk1.shortName} → {crucial2.shortName}:</span>{' '}
+              <span id="ssd-delta-label">{inland1.shortName} → {crucial2.shortName}:</span>{' '}
               <strong id="ssd-delta-amount" class="font-mono text-ctp-peach">+{fmtMoney(initialSsdDelta)}</strong>
             </div>
           </div>
 
           <div class="mt-4 grid gap-3 md:grid-cols-3">
-            <!-- 1TB MC BYO Card -->
+            <!-- 1TB MC Card -->
             <div class="card-panel-subtle rounded-xl border-ctp-green/35 p-4">
-              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Best MC Austin 1TB (BYO -$18)</div>
-              <div class="mt-1 text-sm font-bold text-ctp-text">Sandisk GX 7100 1TB Gen 4 (SKU 028134)</div>
-              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(sandisk1.price)}</div>
-              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-green/90">{fmtMoney(sandisk1.price)} / TB · Gen 4 TLC</div>
+              <div class="text-xs font-semibold uppercase tracking-wider text-ctp-green">Best MC Austin 1TB (-$20 Drop!)</div>
+              <div class="mt-1 text-sm font-bold text-ctp-text">Inland TN320 1TB TLC (SKU 529776)</div>
+              <div id="ssd-1tb-price" class="mt-2 font-mono text-2xl font-bold text-ctp-green">{fmtMoney(inland1.price)}</div>
+              <div id="ssd-1tb-pertb" class="font-mono text-xs text-ctp-green/90">{fmtMoney(inland1.price)} / TB · 3D TLC</div>
               <p class="mt-2 text-xs text-ctp-subtext0">
-                $8 cheaper than Gen 3 Inland ($169.99) via BYO Combo! Leaves <strong>~835GB free</strong> after OS + 3 games.
+                Dropped $20 on Nov 24 — $12 cheaper than BYO Sandisk ($161.99)! Leaves <strong>~835GB free</strong> after OS + 3 games.
               </p>
               <button
                 type="button"
-                data-quick-ssd="sandisk-gx7100-1tb"
-                data-quick-ssd-label="Sandisk 1TB Gen4"
+                data-quick-ssd="inland-tn320-1tb"
+                data-quick-ssd-label="Inland 1TB TLC"
                 class="mt-3 w-full rounded-lg border border-ctp-surface2 bg-ctp-surface0 px-3 py-1.5 text-xs font-semibold text-ctp-text cursor-pointer"
               >
-                Select Sandisk 1TB Gen4
+                Select Inland 1TB TLC
               </button>
             </div>
 
@@ -588,7 +588,7 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
                 {fmtMoney(crucial2.price / 2)} / TB (no /TB savings)
               </div>
               <p class="mt-2 text-xs text-ctp-subtext0">
-                +$180 jump over 1TB right now in Austin — better to add a 2nd M.2 drive later once NAND prices drop.
+                +$200 jump over 1TB right now in Austin — better to add a 2nd M.2 drive later once NAND prices drop.
               </p>
               <button
                 type="button"
@@ -605,9 +605,9 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
               <div class="text-xs font-semibold uppercase tracking-wider text-ctp-mauve">Online Deal Target</div>
               <div class="mt-1 text-sm font-bold text-ctp-text">1TB Gen 4 TLC (Amazon/BB)</div>
               <div id="ssd-online-price" class="mt-2 font-mono text-2xl font-bold text-ctp-mauve">{fmtMoney(online1.price)}</div>
-              <div class="font-mono text-xs text-ctp-subtext0">Check flash sales tonight</div>
+              <div class="font-mono text-xs text-ctp-subtext0">Check flash sales</div>
               <p class="mt-2 text-xs text-ctp-subtext0">
-                Order online if you spot a 1TB TLC Gen 4 deal around $110–$135 to shave ~$40 off Austin’s $169.99 tag.
+                Order online if you spot a 1TB TLC Gen 4 deal around $110–$130 to shave ~$20 off Austin’s $149.99 tag.
               </p>
               <button
                 type="button"
@@ -624,7 +624,7 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
             <strong class="font-semibold">
               Verdict: 100% Stick with 1TB Right Now!
             </strong>{' '}
-            At a {fmtMoney(initialSsdDelta)} jump ({sandisk1.shortName} → {crucial2.shortName}), 2TB costs more per TB
+            At a {fmtMoney(initialSsdDelta)} jump ({inland1.shortName} → {crucial2.shortName}), 2TB costs more per TB
             than 1TB. Save the money today and drop a second M.2 drive into slot #2 once NAND prices cool off.
           </div>
 
@@ -685,7 +685,7 @@ const initialSsdDelta = crucial2.price - sandisk1.price;
                 Always connect via <strong>DisplayPort</strong> on the GPU’s lower ports (AMD’s open-source Linux
                 drivers deliver full bandwidth &amp; VRR over DisplayPort). You also don’t need native 4K in heavy
                 games—<strong>1080p scales cleanly 4:1</strong> and <strong>1440p / FSR</strong> looks crisp while
-                giving the 12GB RX 9070 GRE tons of headroom.
+                giving the 16GB RX 9060 XT / RX 9070 tons of headroom.
               </p>
             </div>
             <div class="rounded-xl border border-ctp-teal/35 bg-ctp-teal/10 p-4 text-xs leading-relaxed text-ctp-text">

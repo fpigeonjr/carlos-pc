@@ -4,10 +4,10 @@ Interactive Astro + Tailwind CSS static dashboard (Catppuccin Mocha theme) hoste
 
 ## Build Summary
 - **Target Budget:** ~$1,500 pre-tax (tower only)
-- **Platform:** Full Team Red — AMD AM5 Micro Center Austin Bundle (`7500X3D` / `9700X` / `7700X3D`) + AMD Radeon RDNA 4 GPU (`RX 9070 GRE` / `RX 9060 XT` / `RX 9070 XT`)
+- **Platform:** Full Team Red — Micro Center Austin AMD Bundle (`5600X3D` / `7500X3D` / `7600X3D` / `7700X3D`) + AMD Radeon RDNA 4 GPU (`RX 9060 XT 16GB` / `RX 9070 GRE` / `RX 9070 XT`)
 - **Target Games:** Marvel Rivals, Valheim, Risk of Rain 2 (all Linux/Proton friendly)
 - **Display & Network:** Existing 4K 60Hz monitor via DisplayPort (supports 1080p 4:1 integer scale, 1440p, or 4K w/ FSR) + Wired Ethernet
-- **Aesthetics & Cooling:** Black ATX mesh mid-tower with tempered glass, standard 5V ARGB fans (OpenRGB-friendly), dual-tower air cooler
+- **Aesthetics & Cooling:** Black ATX mesh mid-tower with tempered glass, standard 5V ARGB fans (OpenRGB-friendly), Thermalright air cooler
 - **Storage:** Starting at 1TB NVMe SSD with live 1TB vs. 2TB Black Friday $/TB math
 
 ## Features
