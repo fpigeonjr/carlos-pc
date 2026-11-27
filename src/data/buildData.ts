@@ -74,9 +74,9 @@ export interface InStoreStop {
 export const BUILD_META = {
   budgetTarget: 1500,
   defaultTaxRate: 0.0825, // TX 8.25% sales tax
-  lastVerified: '2026-11-24',
-  marketContext: 'Nov 2026 Black Friday Window ("RAMageddon" DDR5 & NAND surge)',
-  monitor: 'Existing 4K 60Hz Monitor (DisplayPort)',
+  lastVerified: '2026-11-27',
+  marketContext: 'Nov 27, 2026 Black Friday Price Protection Update (-$30 approved on Order 215-WP-29980)',
+  monitor: 'Existing 4K 60Hz Monitor (DisplayPort) + ASUS TUF VG27AQE5A 27" QHD 165Hz',
   network: 'Wired Ethernet (Gigabit / 2.5GbE)',
 };
 
@@ -110,7 +110,7 @@ export const PART_SLOTS: PartSlot[] = [
           'Bundle 5007538 · 7 NEW IN STOCK at Austin ($269.99, save $154.98)',
           'Ryzen 5 5600X3D (6C/12T, 96MB 3D V-Cache) + 16GB (2×8GB) Dual-Channel DDR4-3200',
           'ASUS Prime B550-Plus AC-HES Full ATX: Front USB-C + 2× 5V ARGB + 2× M.2',
-          'Keeps the whole PC around $1,335 even AFTER TX 8.25% sales tax!',
+          'Keeps the whole PC around $1,302 even AFTER TX 8.25% sales tax!',
         ],
         notes:
           'Strong value in 2026’s DDR5 crisis: full ATX board, dual-channel RAM, and 96MB 3D V-Cache for $130 less than the cheapest AM5 bundle. Easily feeds the RX 9060 XT / 9070 GRE at 60Hz+.',
@@ -144,7 +144,7 @@ export const PART_SLOTS: PartSlot[] = [
           '$245 LESS than Austin’s cheapest in-stock 32GB AM5 bundle (7700X3D $649.99)!',
         ],
         notes:
-          'Cracks the 2026 "RAMageddon" code: 32GB dual-channel RAM, Full ATX, and 3D V-Cache while landing under $1,500 OUT THE DOOR (~$1,368 pre-tax / ~$1,481 w/ tax) with the $599.99 RX 9060 XT 16GB.',
+          'Cracks the 2026 "RAMageddon" code: 32GB dual-channel RAM, Full ATX, and 3D V-Cache while landing under $1,450 OUT THE DOOR (~$1,338 pre-tax / ~$1,448 w/ tax) with the $599.99 RX 9060 XT 16GB.',
         watchOut:
           'AM4 socket won’t take future Ryzen 9000/10000 CPUs. Populate all 4 DIMM slots with the two matched G.Skill Ripjaws V kits and enable DOCP/XMP 3200 in BIOS.',
         linuxTag: 'AM4 32GB + 3D V-Cache',
@@ -175,7 +175,7 @@ export const PART_SLOTS: PartSlot[] = [
           'Zero bent-pin risk (CPU pre-seated) + modern AM5 CPU upgrade path',
         ],
         notes:
-          'Cheapest way onto modern AM5 with 3D V-Cache, landing ~$1,363 pre-tax (~$1,475 w/ tax) with the $599.99 RX 9060 XT 16GB. Linux runs very lean on 16GB RAM, and you can add a matching 2nd stick later.',
+          'Cheapest way onto modern AM5 with 3D V-Cache, landing ~$1,333 pre-tax (~$1,443 w/ tax) with the $599.99 RX 9060 XT 16GB. Linux runs very lean on 16GB RAM, and you can add a matching 2nd stick later.',
         watchOut:
           'Micro-ATX board (ASRock B850M-C) — match case standoffs strictly to mATX holes and remove unused ATX standoffs! Install the single RAM stick in slot A2 only.',
         linuxTag: 'AM5 3D V-Cache + B850',
@@ -193,15 +193,15 @@ export const PART_SLOTS: PartSlot[] = [
         shortName: '4. 7600X3D · 16GB ATX',
         price: 479.99,
         defaultChannel: 'microcenter',
-        badge: 'Reserved Pick',
+        badge: 'Purchased (Nov 24)',
         specs: [
-          'Bundle 5007445 · 5 NEW IN STOCK at Austin ($479.99, save $139.98)',
-          'CPU SKU 742940: Ryzen 5 7600X3D (6C/12T, 96MB 3D V-Cache, 65W AM5)',
-          'Mobo SKU 660753: Gigabyte B650 Gaming X AX V2 Full ATX (3× M.2, 2.5GbE, Wi-Fi 6E)',
-          'RAM SKU 784686: G.Skill Flare X5 16GB (1×16GB) DDR5-6000 (MC URL slug has a DDR4 typo — it IS DDR5!)',
+          'Bundle 5007445 · Picked up Nov 24 ($479.99, Order 215-WP-29980; SOLD OUT at Austin on Black Friday Nov 27!)',
+          'CPU SKU 742940: Ryzen 5 7600X3D ($159.30 bundle split · return by 12/09/2026)',
+          'Mobo SKU 660753: Gigabyte B650 Gaming X AX V2 Full ATX ($110.71 bundle split · return by 12/09/2026)',
+          'RAM SKU 784686: G.Skill Flare X5 16GB (1×16GB) DDR5-6000 ($209.98 bundle split · return by 01/15/2027)',
         ],
         notes:
-          'Locked-in Austin pickup winner! Full-ATX AM5 X3D with 3× M.2 slots and a clean upgrade path, landing at $1,442.94 pre-tax (~$1,562 w/ TX tax) paired with the $599.99 RX 9060 XT 16GB + $149.99 Inland 1TB NVMe.',
+          'Purchased Austin pickup winner! Full-ATX AM5 X3D with 3× M.2 slots and a clean upgrade path, landing at $1,412.94 pre-tax (~$1,530 w/ TX tax) after -$30 Black Friday price protection on Case + PSU.',
         watchOut:
           'Ships with 1×16GB single-channel DDR5 — install the stick in slot A2 (2nd from CPU). Only 5 in stock at Austin.',
         linuxTag: 'AM5 X3D + Full ATX',
@@ -227,7 +227,7 @@ export const PART_SLOTS: PartSlot[] = [
           'Mobo SKU 660753: Gigabyte B650 Gaming X AX V2 Full ATX (3× M.2)',
         ],
         notes:
-          'Cheapest in-stock 32GB AM5 bundle in Austin (both 9700X bundles remain sold out). One-and-done 8-core X3D + 32GB dual-channel DDR5 + Full ATX platform at ~$1,613 pre-tax with the $599.99 RX 9060 XT 16GB.',
+          'Cheapest in-stock 32GB AM5 bundle in Austin (both 9700X bundles remain sold out). One-and-done 8-core X3D + 32GB dual-channel DDR5 + Full ATX platform at ~$1,583 pre-tax with the $599.99 RX 9060 XT 16GB.',
         watchOut: 'Micro Center bundles must be returned as a complete 3-in-1 set. B850 upgrade (5007705) is +$30 ($679.99); 7800X3D B650E (5007508) is +$50 ($699.99).',
         linuxTag: 'AM5 8-Core X3D + 32GB',
         links: [
@@ -589,7 +589,7 @@ export const PART_SLOTS: PartSlot[] = [
   {
     id: 'case',
     title: 'ATX Mid-Tower Mesh Case (Tempered Glass + ARGB)',
-    subtitle: 'Live Micro Center Austin stock (Nov 24) — Lancool 207 Black (3 left) reserved for pickup!',
+    subtitle: 'Black Friday Price Protection Approved (Nov 27) — Lancool 207 Black dropped $99.99 → $79.99 (-$20)!',
     icon: 'CASE',
     defaultOptionId: 'lancool-207-black',
     options: [
@@ -597,19 +597,19 @@ export const PART_SLOTS: PartSlot[] = [
         id: 'lancool-207-black',
         name: 'Lian Li Lancool 207 Tempered Glass ATX Mid-Tower - Black (SKU 732115)',
         shortName: 'Lancool 207 Black',
-        price: 99.99,
+        price: 79.99,
         defaultChannel: 'microcenter',
-        badge: 'Reserved Pick',
+        badge: '-$20 Price Prot.',
         specs: [
-          'SKU 732115 · 3 in stock at Austin ($99.99, In Store Only)',
+          'SKU 732115 · Purchased Nov 24 at $99.99 → dropped to $79.99 on Nov 27 (now SOLD OUT at Austin)',
+          'Home Office remote price protection approved via Ticket #8919016 (-$20.00 to MC Insider Card)',
           '4× included fans (2× 140mm front ARGB + 2× 120mm bottom GPU intake)',
-          'Huge GPU clearance (375mm+ max — fits RX 9060 XT or triple-fan RX 9070 easily)',
-          'Compact footprint + standard 5V ARGB fans (OpenRGB-friendly)',
+          'Huge GPU clearance (375mm+ max) + standard 5V ARGB fans (OpenRGB-friendly)',
         ],
         notes:
-          'One of the best-cooling ATX mesh cases made — and physically on the floor in Austin. Pairs seamlessly with the compact 140mm MSI A750GL PSU and Gigabyte B650 ATX board.',
+          'One of the best-cooling ATX mesh cases made — grabbed before Austin sold out, then adjusted down to $79.99 on Black Friday via remote price protection (Order 215-WP-29980).',
         watchOut:
-          'Only 3 in stock at Austin — glad it’s reserved! Front-mounted PSU uses compact PSUs ≤160mm (all PSU picks below fit easily).',
+          'Watch your Micro Center card statement over 3–5 business days to verify the ~$21.65 credit posts. Front-mounted PSU uses compact PSUs ≤160mm (140mm MSI A750GL fits easily).',
         linuxTag: 'Standard 5V ARGB',
         links: [
           {
@@ -648,13 +648,13 @@ export const PART_SLOTS: PartSlot[] = [
         shortName: 'Lancool 207 White',
         price: 89.99,
         defaultChannel: 'microcenter',
-        badge: '$10 Less Than Black',
+        badge: 'White Alt',
         specs: [
-          'SKU 732123 · 2 in stock at Austin ($89.99, In Store Only)',
-          'Identical class-leading Lancool 207 cooling layout for $10 less than Black',
+          'SKU 732123 · $89.99 In Store Only at Austin',
+          'Identical class-leading Lancool 207 cooling layout in white',
           '4× included fans (2× 140mm ARGB front + 2× 120mm GPU bottom intake)',
         ],
-        notes: 'Rare reverse "white discount" at Austin — worth a look on the floor if a black-and-white stormtrooper look appeals!',
+        notes: 'Clean white/black stormtrooper alternative — though the Black model beat it at $79.99 on Black Friday.',
         linuxTag: 'Standard 5V ARGB',
         links: [
           {
@@ -689,7 +689,7 @@ export const PART_SLOTS: PartSlot[] = [
   {
     id: 'psu',
     title: 'Power Supply (ATX 3.1, 80+ Gold, Modular)',
-    subtitle: 'Austin Holiday Deal beats online! MSI MAG A750GL is $79.99 with 25+ in stock',
+    subtitle: 'Black Friday Price Protection Approved (Nov 27) — MSI MAG A750GL dropped $79.99 → $69.99 (-$10)!',
     icon: 'PSU',
     defaultOptionId: 'msi-a750gl-mc',
     options: [
@@ -697,19 +697,19 @@ export const PART_SLOTS: PartSlot[] = [
         id: 'msi-a750gl-mc',
         name: 'MSI MAG A750GL PCIE5 750W 80+ Gold Fully Modular ATX 3.1 (SKU 596676)',
         shortName: 'MSI A750GL 750W (MC)',
-        price: 79.99,
+        price: 69.99,
         defaultChannel: 'microcenter',
-        badge: 'Holiday Deal!',
+        badge: '-$10 Price Prot.',
         specs: [
-          'SKU 596676 · 25+ in stock at Austin ($79.99, down from $109.99!)',
-          '750W 80+ Gold · ATX 3.1 / PCIe 5.1 · Fully Modular',
-          'Compact 140mm length — ideal fit inside Lian Li Lancool 207',
+          'SKU 596676 · Purchased Nov 24 at $79.99 → dropped to $69.99 Black Friday Deal (25+ in stock, reg $109.99)',
+          'Home Office remote price protection approved via Ticket #8919016 (-$10.00 to MC Insider Card)',
+          '750W 80+ Gold · ATX 3.1 / PCIe 5.1 · Fully Modular · Compact 140mm length',
           'Massive headroom for ~160W RX 9060 XT 16GB and future GPU upgrades',
         ],
         notes:
-          'Absolute steal in Austin’s Holiday Deals — $10 cheaper in-store than typical online pricing, with 25+ units ready for pickup.',
+          'Absolute steal — $69.99 after -$10 Black Friday price protection on Order 215-WP-29980 ($40 off regular $109.99).',
         watchOut:
-          'If stepping up to a dual-connector GPU (like RX 9070 GRE), use two separate 8-pin PCIe cables rather than a single daisy-chained pigtail.',
+          'Watch your Micro Center card statement over 3–5 business days to verify the ~$10.83 credit posts. If stepping up to a dual-connector GPU later, use two separate 8-pin PCIe cables.',
         linuxTag: 'No software needed',
         links: [
           {
@@ -770,8 +770,8 @@ export const PART_SLOTS: PartSlot[] = [
 export const BUILD_PRESETS: BuildPreset[] = [
   {
     id: 'opt1-5600x3d-16gb',
-    name: '1. 5600X3D · 16GB ($1,233)',
-    tagline: 'AM4 Full ATX · ~$1,335 AFTER tax',
+    name: '1. 5600X3D · 16GB ($1,203)',
+    tagline: 'AM4 Full ATX · ~$1,302 AFTER tax',
     selections: {
       bundle: 'mc-5600x3d-16gb',
       gpu: 'rx-9060-xt-challenger-16gb',
@@ -783,8 +783,8 @@ export const BUILD_PRESETS: BuildPreset[] = [
   },
   {
     id: 'opt2-5600x3d-32gb',
-    name: '2. 5600X3D · 32GB ($1,368)',
-    tagline: 'AM4 Full ATX · 32GB · Under $1,500 w/ tax!',
+    name: '2. 5600X3D · 32GB ($1,338)',
+    tagline: 'AM4 Full ATX · 32GB · ~$1,448 w/ tax!',
     selections: {
       bundle: 'mc-5600x3d-32gb',
       gpu: 'rx-9060-xt-challenger-16gb',
@@ -796,8 +796,8 @@ export const BUILD_PRESETS: BuildPreset[] = [
   },
   {
     id: 'opt3-7500x3d-am5',
-    name: '3. 7500X3D · AM5 ($1,363)',
-    tagline: 'AM5 mATX · Pre-installed · Under $1,500 w/ tax',
+    name: '3. 7500X3D · AM5 ($1,333)',
+    tagline: 'AM5 mATX · Pre-installed · ~$1,443 w/ tax',
     selections: {
       bundle: 'mc-7500x3d-b850m',
       gpu: 'rx-9060-xt-challenger-16gb',
@@ -809,8 +809,8 @@ export const BUILD_PRESETS: BuildPreset[] = [
   },
   {
     id: 'opt4-7600x3d-atx',
-    name: '4. 7600X3D · ATX ($1,443)',
-    tagline: 'Reserved Pick · AM5 ATX + 16GB RX 9060 XT',
+    name: '4. 7600X3D · ATX ($1,413)',
+    tagline: 'Purchased · -$30 BF Price Protection!',
     selections: {
       bundle: 'mc-7600x3d-b650',
       gpu: 'rx-9060-xt-challenger-16gb',
@@ -822,7 +822,7 @@ export const BUILD_PRESETS: BuildPreset[] = [
   },
   {
     id: 'opt5-7700x3d-32gb',
-    name: '5. 7700X3D · 32GB ($1,613)',
+    name: '5. 7700X3D · 32GB ($1,583)',
     tagline: 'AM5 8-Core X3D · 32GB DDR5 · Full ATX',
     selections: {
       bundle: 'mc-7700x3d-b650',
@@ -1005,7 +1005,7 @@ export const IN_STORE_BROWSE_GUIDE: InStoreStop[] = [
     id: 'aisle-cases',
     aisle: 'Aisle 63 · Cases',
     title: 'See Cases on Display in Person',
-    reservedPick: 'Lancool 207 Black (SKU 732115 · $99.99)',
+    reservedPick: 'Lancool 207 Black (SKU 732115 · $79.99 after -$20 BF price protection)',
     alternatives: [
       'Lancool 207 White (SKU 732123 · $89.99, 2 left) — identical top-tier airflow for $10 LESS if a white/black look appeals.',
       'Montech SKY 3 RGB Black (SKU 969766 · check shelf tag ~$79.99) — budget tempered-glass alternative.',
@@ -1040,7 +1040,7 @@ export const IN_STORE_BROWSE_GUIDE: InStoreStop[] = [
     id: 'aisle-ssd-psu',
     aisle: 'Aisle 70 (SSDs) & Aisle 64 (PSUs)',
     title: 'Quick SSD & PSU Shelf Check',
-    reservedPick: 'Inland TN320 1TB TLC (SKU 529776 · $149.99) + MSI MAG A750GL 750W (SKU 596676 · $79.99)',
+    reservedPick: 'Inland TN320 1TB TLC (SKU 529776 · $149.99) + MSI MAG A750GL 750W (SKU 596676 · $69.99 after -$10 BF price protection)',
     alternatives: [
       'Ask BYOPC desk if Sandisk Optimus GX 7100 1TB Gen 4 TLC (SKU 028134 · $161.99 w/ -$18 BYO savings) stacks with your bundle (+$12 for Gen 4 speeds; otherwise keep the $149.99 Inland TLC).',
       'Open-Box/Clearance SSDs: only jump to 2TB if you spot a 2TB TLC NVMe under ~$220 (skip the $349.99 regular 2TB shelf price).',

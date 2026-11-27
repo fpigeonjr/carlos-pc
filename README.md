@@ -28,6 +28,18 @@ npm run dev
 ## Updating Baseline Prices
 Edit [`src/data/buildData.ts`](./src/data/buildData.ts) and push to `main` — GitHub Actions automatically rebuilds and publishes to GitHub Pages.
 
+## Purchase & Black Friday Price Protection Log
+- **2026-11-24 — Micro Center Austin Pickup (`215-WP-29980`, Insider Credit Card, $1,564.14 OTD w/ $1.99 bag):**
+  - Bundle `5007445`: Ryzen 5 7600X3D ($159.30, return by `12/09/2026`) + Gigabyte B650 Gaming X AX V2 ATX ($110.71, return by `12/09/2026`) + G.Skill Flare X5 16GB DDR5-6000 ($209.98, return by `01/15/2027`) = **$479.99**
+  - ASRock RX 9060 XT Challenger OC 16GB (`SKU 873026`): **$599.99** *(return by `01/15/2027`)*
+  - Inland TN320 1TB TLC NVMe (`SKU 529776`): **$149.99** *(return by `01/15/2027`)*
+  - Thermalright Assassin X 120R Digital Black (`SKU 959528`): **$32.99** *(return by `01/15/2027`)*
+  - Lian Li Lancool 207 Black (`SKU 732115`): **$99.99 → $79.99** *(return by `01/15/2027`)*
+  - MSI MAG A750GL 750W 80+ Gold Modular (`SKU 596676`): **$79.99 → $69.99** *(return by `01/15/2027`)*
+- **2026-11-27 — Black Friday Remote Price Protection Approved (Ticket `#8919016` / `[Z4JX7K-D4VEM]`):**
+  - Home Office approved remote credits to the Micro Center Insider Credit Card on Order `215-WP-29980`: **-$20.00** (`SKU 732115`) + **-$10.00** (`SKU 596676`) = **-$30.00 pre-tax (~$32.48 w/ 8.25% TX tax)** → net tower cost **$1,412.94 pre-tax (~$1,531.66 OTD)**. Verify both credits post in 3–5 business days.
+  - Note on Order `215-PO-29989` (same-day Austin store trip, Debit Card): ASUS TUF Gaming VG27AQE5A 27" QHD 165Hz Monitor (`SKU 098384`) dropped **$179.99 → $149.99 (-$30.00)**, but debit-card price protection is in-store only with the original card (eligible within 30 days / through `12/24/2026` if price remains lower).
+
 ## Deploying to GitHub Pages
 1. Create your GitHub repository and push `main`:
    ```bash
